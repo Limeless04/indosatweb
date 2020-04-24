@@ -1,0 +1,56 @@
+body{
+    box-sizing: border-box;
+    font-family: 'Montserrat';
+    background-color: #ffbe0d;
+}
+body #navcontainer{
+    margin-top: 60px;
+    color: #e00d02;
+}
+body .container h1{
+    font-family: 'Montserrat';
+    font-size: 45pt;
+    font-weight: 1000;
+    margin-top: 10vh;
+    color: #e00d02;
+    -webkit-text-stroke:1px white ;
+}
+body .container h2{
+    color: #e00d02;
+    font-size: 35pt;
+    font-weight: bold;
+}
+body .container p{
+    color: black;
+    font-size: 15pt;
+    font-weight: bold;
+}
+body .container ul li{
+    list-style-type: none;
+}
+body .container .land_ul .land_li:not(:last-child){
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+body .container .btn_beli,body .container .btn_claim{
+   background-image: linear-gradient(rgba(255,0,0,1),rgba(104,0,0,1));
+    box-shadow: -2px -5px black;
+    color: white;
+    padding: 10px 10px 10px 10px;
+    border-radius: 50px;
+    font-size: 20pt;
+    letter-spacing:2px ;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.navbar-nav{
+    margin-left: auto;
+    
+}
+
+.navbar-nav .nav-item a{
+    color: #e00d02;
+    font-size: 20pt;
+    font-weight: bolder;
+}

@@ -33,10 +33,10 @@ body .container .land_ul .land_li:not(:last-child){
     margin-top: 30px;
 }
 body .container .btn_beli,body .container .btn_claim{
-   background-image: linear-gradient(rgba(255,0,0,1),rgba(104,0,0,1));
+    background-image: linear-gradient(rgba(255,0,0,1),rgba(128,0,0,1));
     box-shadow: -2px -5px black;
     color: white;
-    padding: 10px 10px 10px 10px;
+    padding: 10px 40px 10px 40px;
     border-radius: 50px;
     font-size: 20pt;
     letter-spacing:2px ;
@@ -53,4 +53,30 @@ body .container .btn_beli,body .container .btn_claim{
     color: #e00d02;
     font-size: 20pt;
     font-weight: bolder;
+}
+
+.col-form-label{
+    background-color: #e00d02;
+    color:white;
+    font-size: 15px;
+    border-radius: 10px;
+}
+.form-control{
+    border-radius: 10px;
+}
+.container .header_beli{
+    color: black;
+    font-weight: bold;
+}
+#btn_submit{
+    background-image: linear-gradient(rgba(255,0,0,1),rgba(128,0,0,1));
+    box-shadow: -2px -5px black;
+    color: white;
+    padding: 10px 40px 10px 40px;
+    border-radius: 50px;
+    font-size: 15pt;
+    letter-spacing:2px ;
+    font-weight: bold;
+    text-decoration: none;
+    float: right;
 }

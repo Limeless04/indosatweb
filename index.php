@@ -42,7 +42,7 @@ switch($_SERVER['HTTP_HOST']){
 	case 'localhost':
 		$env = 'development';
 	break;
-	case 'testing':
+	case 'xlimm.000webhostapp.com':
 		$env = 'testing';
 	break;
 	case 'production':

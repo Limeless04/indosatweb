@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'db_indosat',
+	'hostname' => 'localhost',
+	'username' => 'id12736442_localhost',
+	'password' => '&HU*j0f#H{sp&~RQ',
+	'database' => 'id12736442_mywebdb',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

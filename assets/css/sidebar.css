@@ -1,0 +1,114 @@
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+.wrapper {
+    display: flex;
+    align-items: stretch;
+}
+body #content{
+    background-color: #FFF;
+    width: 100%;
+}
+
+body #content .container_region{
+    padding: 5px 10px 5px 10px;
+    margin-top: 10px;
+    overflow-y: scroll;
+    height: 100vh;
+}
+body #content .container_region h1{
+  border-bottom: 1px solid lightgrey ;
+}
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    min-height: 100vh;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+#sidebar {
+    /* don't forget to add all the previously mentioned styles here too */
+    background: #e00d02;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background:#e00d02;
+}
+#sidenav{
+    border-bottom: 3px solid #ffbe0d;
+    background-color: #ffbe0d;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+}
+
+#sidebar ul h4 a{
+    color: black;
+    padding: 10px;
+    text-decoration: none;
+}
+#sidebar ul li{
+        border-bottom: solid;
+        border-color: black;
+        border-width: 2px;
+        margin-top: 5px;
+        
+}
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    color: black;
+    display: block;
+    border: #e00d02;
+    text-decoration: none;
+}
+.btn_sidebar{
+    margin: 0;
+    color: black;
+    background-color: #e00d02;
+}
+#sidebar ul li a:hover {
+    color: black;
+    background: #ffbe0d;
+}
+
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+    color: black;
+    background:#ffbe0d ;
+}
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #e00d02;
+}
+
+.content{
+    background-color: whitesmoke;
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+    
+}

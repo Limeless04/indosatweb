@@ -7,20 +7,21 @@
     <link href="https://fonts.googleapis.com/css?family=Lato|Montserrat:400,600|Open+Sans|Open+Sans+Condensed:300" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url("assets/");?>css/bootstrap.css">
     <link rel="stylesheet" href="<?= base_url("assets/");?>css/style.css">
-    <title>Beli Sekarang</title>
+    <link rel="stylesheet" href="<?= base_url("assets/");?>css/sidebar.css">
+    <title><?= $judul;?></title>
 
 </head>
 <body>
 <div class="container" id="navcontainer">
 <nav class="navbar navbar-expand-lg"  >
   <a class="navbar-brand" href="#">Im3</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" id="btn_navbar" >
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="<?= base_url("");?>">Home</a>
+        <a class="nav-link" href="<?= base_url();?>">Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Address</a>
@@ -38,3 +39,4 @@
   </div>
 </nav>
 </div>
+<div class="content_utama">

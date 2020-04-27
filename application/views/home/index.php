@@ -1,4 +1,6 @@
     <div class="container">
+    <div id="circle"></div>
+    <div id="circle2"></div>
     <h1>Gebyar Hadiah</h1>
     <h2>SP IM3 2GB</h2>
     <p>Beli SP IM3 2 GB</p>

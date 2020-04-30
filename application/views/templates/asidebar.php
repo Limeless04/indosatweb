@@ -2,7 +2,7 @@
     <!-- Sidebar -->
     <nav id="sidebar">
         <div class="sidebar-header">
-            <h3>IM3 Logo</h3>
+            <img src="<?= base_url('assets/');?>img/logo_im3.svg" id="logo_im3" alt="">
         </div>
 
         <ul class="list-unstyled components">
@@ -18,7 +18,7 @@
                 <a href="<?= base_url('region/');?>pic">Update PIC region</a>
             </li>
             <li>
-                <a href="<?= base_url('region/');?>crudProduk">Create/Update Produk</a>
+                <a href="<?= base_url('region/');?>produk">Create/Update Produk</a>
             </li>   
             <li>
                 <a href="<?= base_url('region/');?>logOut">Log out</a>

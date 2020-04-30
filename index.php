@@ -38,18 +38,20 @@
 
 
 /*Dynamic Environment*/
-switch($_SERVER['HTTP_HOST']){
+switch ($_SERVER['HTTP_HOST']) {
 	case 'localhost':
 		$env = 'development';
-	break;
-	case 'xlimm.000webhostapp.com':
+		break;
+	case 'www.webster.epizy.com':
 		$env = 'testing';
-	break;
-	case 'production':
-		$env = "production";
-	break;
-	}
-
+		break;
+	case 'www.production.com':
+		$env = 'production';
+		break;
+	default:
+		$env = 'development';
+		break;
+}
 
 
 /*

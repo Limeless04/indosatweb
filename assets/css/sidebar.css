@@ -14,6 +14,22 @@ body #content .container_region{
     margin-top: 10px;
     overflow-y: scroll;
     height: 100vh;
+    overflow-x: scroll;
+}
+
+body #content .container_region .btn_produk{
+    background-color: #e00d02;
+    height: 45px;
+    margin-left: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+
+}
+body #content .container_region .btn_produk a{
+    text-decoration: none;
+color: black;
 }
 body #content .container_region h1{
   border-bottom: 1px solid lightgrey ;
@@ -41,23 +57,26 @@ a[data-toggle="collapse"] {
 
 #sidebar {
     /* don't forget to add all the previously mentioned styles here too */
-    background: #e00d02;
+    background: #fed225;
     color: #fff;
     transition: all 0.3s;
 }
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background:#e00d02;
+    background:#fed225;
 }
 #sidenav{
-    border-bottom: 3px solid #ffbe0d;
-    background-color: #ffbe0d;
+    border-bottom: 3px solid #ff0000;
+    background-color: #ff0000;
 }
 
 #sidebar ul.components {
     padding: 20px 0;
 }
+#sidebar #logo_im3{
+    width: 100px;
+ }
 
 #sidebar ul h4 a{
     color: black;
@@ -82,21 +101,21 @@ a[data-toggle="collapse"] {
 .btn_sidebar{
     margin: 0;
     color: black;
-    background-color: #e00d02;
+    background-color: #fed224;
 }
 #sidebar ul li a:hover {
     color: black;
-    background: #ffbe0d;
+    background: #ff0000;
 }
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
     color: black;
-    background:#ffbe0d ;
+    background:#ff0000 ;
 }
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #e00d02;
+    background: #ff0000;
 }
 
 .content{

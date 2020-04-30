@@ -1,17 +1,30 @@
 body{
     box-sizing: border-box;
     font-family: 'Montserrat';
+    background-color: #fed225;
+}
+
+body #landing_page{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.table #thead{
     background-color: #ffbe0d;
+} 
+.crud_produk{
+    margin-left: 10px;
 }
-body .content_utama{
-    
-}
+
 body #navcontainer{
     margin-top: 60px;
-    color: #e00d02;
+    color: #ff0000;
+}
+body #navcontainer #logo_im3{
+   width: 20%;
 }
 body #navcontainer #btn_navbar{
-    background-color:#e00d02 ;  
+    background-color:#ff0000 ;  
 }
 body #navcontainer #btn_navbar .navbar-toggler-icon{
     color: white;
@@ -37,7 +50,15 @@ body .container p{
 body .container ul li{
     list-style-type: none;
 }
-body .container .land_ul .land_li:not(:last-child){
+body .container .land_ul .land_li .btn_beli{
+    position: absolute;
+    top: 95%;
+}
+body .container .land_ul li .btn_claim{
+    position: absolute;
+    top: 110%;
+}
+body .container .land_ul .land_li:not(:last-child){  
     margin-bottom: 30px;
     margin-top: 30px;
 }
@@ -47,7 +68,7 @@ body .container .btn_beli,body .container .btn_claim{
     color: white;
     padding: 10px 40px 10px 40px;
     border-radius: 50px;
-    font-size: 20pt;
+    font-size: 15pt;
     letter-spacing:2px ;
     font-weight: bold;
     text-decoration: none;
@@ -86,7 +107,14 @@ body .container .btn_beli,body .container .btn_claim{
 }
 
 @media (max-width: 768px) {
-
+    body .container .land_ul .land_li .btn_beli{
+        position: absolute;
+        top: 60%;
+    }
+    body .container .land_ul li .btn_claim{
+        position: absolute;
+        top: 70%;
+    }
 }
 
 .col-form-label{
@@ -113,4 +141,16 @@ body .container .btn_beli,body .container .btn_claim{
     font-weight: bold;
     text-decoration: none;
     float: right;
+}
+
+.container .card-login{
+position: fixed;
+text-align: center;
+width: 40%;
+top:50%;
+left: 50%;
+transform: translate(-50%,-50%);
+}
+.container img{
+    width: 50%;
 }

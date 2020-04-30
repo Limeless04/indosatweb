@@ -1,13 +1,7 @@
     <div class="container">
-    <div id="circle"></div>
-    <div id="circle2"></div>
-    <h1>Gebyar Hadiah</h1>
-    <h2>SP IM3 2GB</h2>
-    <p>Beli SP IM3 2 GB</p>
-    <p>Behadiah Langsung</p>
-    <p>Hoodie IM3,T Shirt IM3, dll</p>
+    <img src="<?= base_url('assets/');?>img/landing_page.svg" id="landing_page" alt="">
     <ul class="land_ul">
-        <li class="land_li"><a class="btn_beli" href="<?= base_url("beli/");?>">Beli Sekarang</a></li>
+        <li class="land_li"><a class="btn_beli" href="<?= base_url("Beli/");?>">Beli Sekarang</a></li>
         <li><a class="btn_claim" href="#">Claim Hadiah</a></li>
     </ul>
     </div>

@@ -215,18 +215,26 @@ class Region extends CI_Controller {
 
     function getReport(){
         $getReport = $this->Region_model->make_datatables();
+        $getReportS = $this->Region_model->make_datatables_sukses();
+        $getReportR = $this->Region_model->make_datatables_reject();
+        $getReportP = $this->Region_model->make_datatables_progress();
         $data = array();
         foreach($getReport as $row){
         $sub_array = array();
-        // $sub_array[]
         $sub_array[] = $row->cluster;
-        $sub_array[] = $row->no_wa;
-        $sub_array[] = $row->status;
-        $sub_array[] = $row->status;
-        $sub_array[] = $row->status;
-               
-        $data[] = $sub_array;
-    }
+        $sub_array[] = $row->order;
+        foreach($getReportS as $row){
+            $sub_array[] = $row->sukses;
+        }
+        foreach($getReportR as $row){
+            $sub_array[]=$row->reject;
+        }
+        foreach($getReportP as $row){
+            $sub_array[]=$row->progress;
+        }
+        $data[]=$sub_array;
+
+        }
     $output = array(
         "draw" =>intval(@$_POST["draw"]),
         "recordsTotal"=>$this->Region_model->get_all_data(),

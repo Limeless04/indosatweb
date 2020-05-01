@@ -56,9 +56,15 @@ class Region extends CI_Controller {
     }
     public function pushEmail(){
         $data['judul'] ="Region";
+        $data = [
+            'data'=> $this->Region_model->listing(),
+            'sukses'=> $this->Region_model->listing(),
+            'reject'=> $this->Region_model->listing(),
+            'progress'=> $this->Region_model->listing(),
+        ];
         $this->load->view("templates/aheader",$data);
         $this->load->view("templates/asidebar");
-        $this->load->view("region/pushEmail");
+        $this->load->view("region/pushEmail",$data);
         $this->load->view("templates/afooter");
     }
 
@@ -243,5 +249,7 @@ class Region extends CI_Controller {
     );
     echo json_encode($output);
     }
+
+
 }
 

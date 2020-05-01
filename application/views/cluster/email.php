@@ -21,7 +21,7 @@
       <td><?= $p['nama'];?></td>
       <td><?=$p["email"];?></td>
       <td><?= $p["cluster"];?></td>
-      <td><a href="<?= base_url("Region/");?>hapusUserRegion/<?= $p['id'];?>" class="badge badge-danger">Hapus</a> <br> <a href="<?= base_url("Region/");?>editUserRegion/<?= $p['id'];?>" class="badge badge-info">Edit</a></td>
+      <td><a href="<?= base_url("Cluster/");?>hapusUserRegion/<?= $p['id'];?>" class="badge badge-danger">Hapus</a> <br> <a href="<?= base_url("Cluster/");?>editUserRegion/<?= $p['id'];?>" class="badge badge-info">Edit</a></td>
     </tr>
     <?php endforeach;?>
   <?php endif;?>

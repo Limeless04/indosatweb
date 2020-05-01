@@ -32,7 +32,7 @@
     <div class="form-group row">
         <label for="inputEmail3" class="col-sm-2 col-form-label">Propinsi/Region</label>
         <div class="col-sm-10">
-        <select name="propinsi" id="propinsi" class="form-control">
+        <select name="propinsi" id="propinsi" name="email" class="form-control">
          <option value="">Pilih Propinsi....</option>   
          <option value="Jawa Tengah">Jawa Tengah</option>
          <option value="Jawa Barat">Jawa Barat</option>
@@ -42,7 +42,7 @@
     <div class="form-group row">
         <label for="inputEmail3" class="col-sm-2 col-form-label">Cluster/Kota</label>
         <div class="col-sm-10">
-        <select name="cluster" id="cluster" class="form-control">
+        <select name="cluster" id="cluster" name="cluster" class="form-control">
          <option value="">Pilih kota....</option>   
         </select>
     </div>

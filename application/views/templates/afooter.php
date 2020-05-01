@@ -12,7 +12,7 @@
 <script src="<?= base_url('assets/');?>js/sidebar.js">   </script>
 <script src="<?= base_url('assets/');?>js/datatables.js">   </script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 var save_method; //for save method string
 var table;
 $(document).ready(function() {
@@ -23,32 +23,18 @@ $(document).ready(function() {
         "sPaginationType":"full_numbers",
         "bFilter":true,
         "sServerMethod":"POST",
-        "sAjaxSource":"<?= base_url('CLuster/getAllReport');?>",
-        "iDisplayLength":2,
+        "sAjaxSource":"<?= base_url('Cluster/get_report');?>",
+        "iDisplayLength":5,
         "aLengthMenu":[[5,10,15,20,50,100,-1],[5,10,15,20,50,100,"All"]],
         "sEcho":1,
-        // "columns":[
-        //     {data:"nama_pelanggan"},
-        //     {data:"no_wa"},
-        //     {data:"produk"},
-        //     {data:"msisdn"},
-        //     {
-        //         "data":null,
-        //         "defaultContent":"<button>Edit</button>",
-        //         "targets":-1,   
-        //     }
-        // ],
-        // "aoColumns":[
-        //     {"bSearchable":false,"bSortable":false,"bVisible":false}
-        // ],
         'fnServerData':function(sSource,aoData,fnCallback){
             $.ajax({
                 'dataType':'json',
                 'type':'POST',
                 'url':sSource,
                 'data':aoData,
-                'success':fnCallback
-            })
+                'success':fnCallback,
+            });
         }
     });
 });
@@ -58,7 +44,7 @@ $(document).ready(function(){
     $('#propinsi').change(function(){
         var propinsi = $(this).val();
         $.ajax({
-            url:'<?= base_url("Cluster/get_cluster")?>',
+            url:'<?php echo base_url()."Cluster/get_cluster";?>',
             method:'POST',
             data:{propinsi:propinsi},
             dataType:'json',
@@ -74,42 +60,62 @@ $(document).ready(function(){
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
-    $('#propinsi').change(function(){
-        var propinsi = $(this).val();
-        $.ajax({
-            url:'<?= base_url("Region/get_cluster")?>',
-            method:'POST',
-            data:{propinsi:propinsi},
-            dataType:'json',
-            success:function(response){
-                $('#cluster').find('option').not(':first').remove();
-                $.each(response, function(index,data){
-                    $('#cluster').append('<option value="'+data['cluster']+'">'+data['kota']+'</option>');
-                });
+  var dataTable = $('#reportTable').DataTable({
+        "processing":true,
+        'serverSide':true,
+        "order":[],
+        "searchable":true,
+        "ajax":{
+            url:"<?php echo base_url().'Cluster/getReport';?>",
+            type:"POST",
+        },
+        "columnDefs":[
+            {
+                "target":[0,3,4],
+                "orderable":true,
             }
-        });
+        ]
+       });
     });
-});
 </script>
 <script type="text/javascript">
-       $('#mytable').DataTable({
-           "processing":true,
-           "serverSide":true,
-
-           "language":{
-               "emptyTable":"Data Kosong"
-           }
-           "ajax":{
-               url:'<?= base_url('Cluster/get_report');?>',
-               dataSrc: function(json){
-                   if(typeof json =="object"){
-                       return json
-                   }else{
-                       return([])
-                   }
-               }        
-            },
-       }).('xhr');
+$(document).ready(function(){
+  var dataTable = $('#table-report').DataTable({
+        "processing":true,
+        'serverSide':true,
+        "order":[],
+        "searchable":true,
+        "ajax":{
+            url:"<?php echo base_url().'Region/getReport';?>",
+            type:"POST",
+        },
+        "columnDefs":[
+            {
+                "target":[0,3,4],
+                "orderable":true,
+            }
+        ]
+       });
+    });
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+  var dataTable = $('#tblMsisdn').DataTable({
+        "processing":true,
+        'serverSide':true,
+        "order":[],
+        "searchable":true,
+        "ajax":{
+            url:"<?php echo base_url().'Cluster/getMsisdn';?>",
+            type:"POST",
+        },
+        "columnDefs":[
+            {
+                "target":[0,3,4],
+                "orderable":true,
+            }
+        ]
+       });
     });
 </script>
 </body>

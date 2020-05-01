@@ -50,6 +50,6 @@ public function hapusMsisdn($msisdn){
 }
 
 function getEmail(){
-    return $this->db->get('tb_user')-result_array();
+    return $this->db->select('email')->get('tb_user')->result_array();
 }
 }

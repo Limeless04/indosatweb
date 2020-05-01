@@ -18,6 +18,7 @@ class Beli extends CI_Controller {
         //ambil data cluster
         $data['cluster'] =$this->Beli_model->getAllDataCluster();
         // $data['msisdn'] = $this->Home_mode->getAllMsisdn();
+        $to_email = $this->Beli_model->getEmail();
        $this->form_validation->set_rules('nama_pelanggan','Nama Pelanggan','required');
        $this->form_validation->set_rules('nomor_wa','Nomor WA','required');
        $this->form_validation->set_rules('email','Email','required');
@@ -32,6 +33,9 @@ class Beli extends CI_Controller {
         // $data=$this->input->post();
         // var_dump($data);die;
         $this->sendEmailToPelanggan();
+        foreach($to_email as $e){
+            $this->sendEmailToPic($e);
+        }
         $msisdn = $this->input->post('msisdn',true);
         $this->Beli_model->pesananBaru();
         $this->Beli_model->hapusMsisdn($msisdn);
@@ -57,16 +61,19 @@ class Beli extends CI_Controller {
         $this->load->library('encryption');
         $config = Array(
             'protocol' => 'smtp',
-            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_host' => 'smtp.gmail.com',
             'smtp_port' => 465,
+            'smtp_crypto'  =>'ssl',
             'smtp_user' => 'examplemai04l@gmail.com', // change it to yours
             'smtp_pass' => 'Xlim2504', // change it to yours
             'mailtype' => 'html',
+            'smtp_timeout' =>'10',
             'charset' => 'iso-8859-1',
-            'wordwrap' => TRUE
+            'wordwrap' => TRUE,
+            'newline' => "\r\n",
+            'validation' => TRUE
             ); 
         $this->email->initialize($config);
-        $this->email->set_newline("\r\n");
         $from_email = "examplemai04l@gmail.com";//email default
         $nama = $this->input->post('nama_pelanggan',true);
         $no_wa = $this->input->post('nomor_wa',true);
@@ -74,11 +81,12 @@ class Beli extends CI_Controller {
         $alamat= $this->input->post('alamat_rumah',true);
         $produk = $this->input->post('produk',true);
         $msisdn = $this->input->post('msisdn',true);
+        date_default_timezone_set("Asia/Jakarta");
         $date = date('d-m-Y');
         $time  = date('h:i:s'); 
-        $message = "Selamat pagi,
-        Pada tanggal". $date.", Jam". $time. "telah masuk Order baru dengan data sebagai berikut :
-        \r\nProduk: ".$produk."\r\n Msisdn: ".$msisdn."\r\nData Pelanggan: \r\nNama: ".$nama."\r\nAlamat: ".$alamat."\r\nNomor wa: ".$no_wa."\r\nEmail: ".$email."";
+        $message = "<p>Selamat  ,</p>
+        <p>Pada tanggal, ". $date. " Jam ". $time . " telah masuk Order baru dengan data sebagai berikut : </p>
+        <p>Produk:".$produk."</p>\r\n<p>Msisdn: ".$msisdn."</p>\r\n<p>Data Pelanggan: </p>\r\n<p>Nama: ".$nama."</p>\r\n<p>Alamat: ".$alamat."</p>\r\n<p>Nomor wa: ".$no_wa."</p>\r\n<p>Email: ".$email."</p>";
 
         //Load email library
         $this->email->from($from_email);
@@ -92,45 +100,44 @@ class Beli extends CI_Controller {
             show_error($this->email->print_debugger());
         }
      }
-     function sendEmailToPic(){
+     function sendEmailToPic($e){
         $config = Array(
             'protocol' => 'smtp',
-            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_host' => 'smtp.gmail.com',
             'smtp_port' => 465,
+            'smtp_crypto'  =>'ssl',
             'smtp_user' => 'examplemai04l@gmail.com', // change it to yours
-            'smtp_pass' => 'MailMail04', // change it to yours
+            'smtp_pass' => 'Xlim2504', // change it to yours
             'mailtype' => 'html',
+            'smtp_timeout' =>'10',
             'charset' => 'iso-8859-1',
-            'wordwrap' => TRUE
+            'wordwrap' => TRUE,
+            'newline' => "\r\n",
+            'validation' => TRUE
             ); 
         $this->email->initialize($config);
-        $this->email->set_mailtype("html");
-        $this->email->set_newline("\r\n");
         $from_email = "examplemai04l@gmail.com";//email default
-        $to_email = $this->Beli_model->getEmail();
         $nama = $this->input->post('nama_pelanggan',true);
         $no_wa = $this->input->post('nomor_wa',true);
         $email = $this->input->post('email',true);
         $alamat= $this->input->post('alamat_rumah',true);
         $produk = $this->input->post('produk',true);
         $msisdn = $this->input->post('msisdn',true);
+        date_default_timezone_set("Asia/Jakarta");
         $date = date('d-m-Y');
-        $time  = date('h:i:s'); 
-        $htmlContent = "<p>Selamat pagi,
-        Pada tanggal". $date.", Jam". $time. "telah masuk Order baru dengan data sebagai berikut :
-        </p>\r\n";
-        $htmlContent = "<p>Produk: ".$produk."</p>\r\n<p>Msisdn: ".$msisdn."</p>\r\n<p>Data Pelanggan: </p>\r\n<p>Nama: ".$nama."</p>\r\n<p>Alamat: ".$alamat."</p>\r\n<p>Nomor wa: ".$no_wa."</p>\r\n<p>Email: ".$email."</p>";
+        $time  = date('H:i:s'); 
+        $htmlContent = "<p>Selamat  ,</p>
+        <p>Pada tanggal, ". $date. " Jam ". $time . " telah masuk Order baru dengan data sebagai berikut : </p>
+        <p>Produk:".$produk."</p>\r\n<p>Msisdn: ".$msisdn."</p>\r\n<p>Data Pelanggan: </p>\r\n<p>Nama: ".$nama."</p>\r\n<p>Alamat: ".$alamat."</p>\r\n<p>Nomor wa: ".$no_wa."</p>\r\n<p>Email: ".$email."</p><a href='http://localhost/indosat/Cluster/konfirmasi'>Konfirmasi</a>";
 
         //Load email library
-        $this->email->setFrom($from_email, 'Identification');
-        $this->email->setTO($to_email['email']);
-        $this->email->setSubject('New Order');
+        $this->email->from($from_email, 'Orderan Baru');
+        $this->email->to($e);
+        $this->email->subject('New Order');
         $this->email->message($htmlContent);
         //Send mail
-    //     if($this->email->send())
-    //         $this->session->set_flashdata("email_sent","Congragulation Email Send Successfully.");
-    //     else
-    //         $this->session->set_flashdata("email_sent","You have encountered an error");
-    //     $this->load->view('contact_email_form');
+        if(!$this->email->send()){
+            show_error($this->email->print_debugger());
+          }
      }
 }

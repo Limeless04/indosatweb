@@ -16,14 +16,16 @@ class Region extends CI_Controller {
     }
 
     public function index(){
+        $data['judul'] ="Region";
     $data['heading'] = "Dashboard";
-    $this->load->view("templates/aheader");
+    $this->load->view("templates/aheader",$data);
     $this->load->view("templates/asidebar");
     $this->load->view("region/index",$data);
     $this->load->view("templates/afooter");
     }
 
     public function report(){
+        $data['judul'] ="Region";
 	    $data["heading"] ="Report";
         // $data['reportBlnIni'] = $this->Region_model->getDataReportBulanIni();
         // $data['reportBlnLalu'] = $this->Region_model->getDataReportBulanLalu();
@@ -34,6 +36,7 @@ class Region extends CI_Controller {
         $this->load->view("templates/afooter");
     }
     public function produk(){
+        $data['judul'] ="Region";
         $data["heading"] ="Produk";
         $data["produk"] =$this->Region_model->getAllDataProduk();
         $this->load->view("templates/aheader",$data);
@@ -42,16 +45,18 @@ class Region extends CI_Controller {
         $this->load->view("templates/afooter");
     }  
     public function pic(){
+        $data['judul'] ="Region";
         $data['heading'] = 'Data Akun Region';
         $user = $this->db->get_where('tb_user',['email' => $this->session->userdata('email')]) ->row_array();
         $data['userRegion'] = $this->Region_model->getDataByPropinsi($user);
-        $this->load->view("templates/aheader");
+        $this->load->view("templates/aheader",$data);
         $this->load->view("templates/asidebar");
         $this->load->view("region/pic",$data);
         $this->load->view("templates/afooter");
     }
     public function pushEmail(){
-        $this->load->view("templates/aheader");
+        $data['judul'] ="Region";
+        $this->load->view("templates/aheader",$data);
         $this->load->view("templates/asidebar");
         $this->load->view("region/pushEmail");
         $this->load->view("templates/afooter");
@@ -76,11 +81,12 @@ class Region extends CI_Controller {
 
 
     public function createProduk(){
+        $data['judul'] ="Region";
         $this->form_validation->set_rules('nama_produk','Nama Produk','required');
         $this->form_validation->set_rules('harga','Harga','required');
         $this->form_validation->set_rules('desc_produk','Deskripsi','required');
         if($this->form_validation->run() == FALSE){
-            $this->load->view("templates/aheader");
+            $this->load->view("templates/aheader",$data);
             $this->load->view("templates/asidebar");
             $this->load->view("region/createProduk");
             $this->load->view("templates/afooter");
@@ -103,12 +109,13 @@ class Region extends CI_Controller {
     }
 
     public function editProduk($id){
+        $data['judul'] ="Region";
         $data['produk'] = $this->db->get_where('tb_produk',['id' => $id]) ->row_array();
         $this->form_validation->set_rules('nama_produk','Nama Produk','required');
         $this->form_validation->set_rules('harga','Harga','required');
         $this->form_validation->set_rules('desc_produk','Deskripsi','required');
         if($this->form_validation->run() == FALSE){
-            $this->load->view("templates/aheader");
+            $this->load->view("templates/aheader",$data);
             $this->load->view("templates/asidebar");
             $this->load->view("region/editProduk",$data);
             $this->load->view("templates/afooter");
@@ -125,6 +132,7 @@ class Region extends CI_Controller {
 
 
     public function tambahUser(){
+        $data['judul'] ="Region";
         if(!$this->session->userdata('email')){
             redirect('Auth');
         }
@@ -156,6 +164,7 @@ class Region extends CI_Controller {
         }
     }
     public function editUserRegion($id){
+        $data['judul'] ="Region";
         $data['user'] = $this->db->get_where('tb_user',['id' => $id]) ->row_array();
         $this->form_validation->set_rules('nama','Nama','required|trim');
         $this->form_validation->set_rules('email','Email','required|trim|valid_email|is_unique[tb_user.email]');
@@ -168,7 +177,7 @@ class Region extends CI_Controller {
         'min_length' => 'Password too short!'
         ]);
         if($this->form_validation->run() == FALSE){
-            $this->load->view("templates/aheader");
+            $this->load->view("templates/aheader",$data);
             $this->load->view("templates/asidebar");
             $this->load->view("region/editUser",$data);
             $this->load->view("templates/afooter");
@@ -202,6 +211,29 @@ class Region extends CI_Controller {
         $propinsi= $this->input->post("propinsi");
         $cluster = $this->Region_model->getCluster($propinsi); 
         echo json_encode($cluster);// konversi varibael $callback menjadi JSON
+    }
+
+    function getReport(){
+        $getReport = $this->Region_model->make_datatables();
+        $data = array();
+        foreach($getReport as $row){
+        $sub_array = array();
+        // $sub_array[]
+        $sub_array[] = $row->cluster;
+        $sub_array[] = $row->no_wa;
+        $sub_array[] = $row->status;
+        $sub_array[] = $row->status;
+        $sub_array[] = $row->status;
+               
+        $data[] = $sub_array;
+    }
+    $output = array(
+        "draw" =>intval(@$_POST["draw"]),
+        "recordsTotal"=>$this->Region_model->get_all_data(),
+        "recordsFiltered" =>$this->Region_model->get_filtered(),
+        "data" => $data
+    );
+    echo json_encode($output);
     }
 }
 

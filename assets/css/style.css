@@ -15,7 +15,9 @@ body #landing_page{
 .crud_produk{
     margin-left: 10px;
 }
-
+table tbody td{
+    text-decoration: none;
+}
 body #navcontainer{
     margin-top: 60px;
     color: #ff0000;

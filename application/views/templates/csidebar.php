@@ -6,19 +6,19 @@
         </div>
 
         <ul class="list-unstyled components">
-            <h4><a href="<?= base_url('cluster/');?>">Dashboard</a></h4>
+            <h4><a href="<?= base_url('Cluster/');?>">Dashboard</a></h4>
             
             <li>
-                <a href="<?= base_url('cluster/');?>reportOrder">Report Sheet</a>
+                <a href="<?= base_url('Cluster/');?>reportOrder">Report Sheet</a>
             </li>
             <li>
                 <a href="<?= base_url('Cluster/');?>msisdn">Add/Update MSISDN</a>
             </li>
             <li>
-                <a href="<?= base_url('cluster/');?>email">Add/Update Email</a>
+                <a href="<?= base_url('Cluster/');?>email">Add/Update Email</a>
             </li>
             <li>
-                <a href="<?= base_url('cluster/');?>logOut">Log out</a>
+                <a href="<?= base_url('Cluster/');?>logOut">Log out</a>
             </li>
         </ul>
     </nav>

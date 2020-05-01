@@ -1,34 +1,46 @@
 <?php
 class Region_model extends CI_model{
-    // var $table = "Report";
-    // var $column_order = [null,'cluster','order','sukses','reject','progress'];
-    // var $column_search = ['cluster','order','sukses','reject','progress'];
-    // var $order = ['id' =>'asc'];
-    // public function getDataReportBulanIni(){      
-    //     $this->db->select("*,count(nama_pelanggan),count(sukses),count(reject),count(pending)");
-    //     $this->db->where("MONTH(dibuat)",date('m'));
-    //     $this->db->where("YEAR(dibuat)",date('Y'));
-    //     $this->db->group_by('depo');    
-    //     $this->db->order_by('dibuat','asc');
-    //     $query= $this->db->get('tb_pmasuk');
-    //     return $query->result_array();        
-    // }
-    // public function getDataReportBulanLalu(){
-    //     $this->db->select("*,count(nama_pelanggan),count(sukses),count(reject),count(pending)"); 
-    //     $this->db->where("MONTH(dibuat)",date('m',strtotime("-30 days")));
-    //     $this->db->where("YEAR(dibuat)",date('y'));
-    //     $this->db->group_by('depo');
-    //     $this->db->order_by('dibuat','asc');
-    //     $query= $this->db->get('tb_pmasuk');
-    //     return $query->result_array();       
-    // }
-    // public function getAllDataReport(){
-    //     $this->db->select("*,count(nama_pelanggan),count(sukses),count(reject),count(pending)"); 
-    //     $this->db->group_by('depo');
-    //     $this->db->order_by('dibuat','asc');
-    //     $query= $this->db->get('tb_pmasuk');
-    //     return $query->result_array();       
-    // }
+     var $table = "tb_pmasuk,tb_cluster";
+     var $select_order = [null,'nama_pelanggan','no_wa','msisdn',null,null];
+     var $select_column = ['tb_pmasuk.nama_pelanggan','tb_pmasuk.no_wa','tb_pmasuk.cluster','tb_pmasuk.dibuat','tb_pmasuk.status','tb_pmasuk.msisdn','tb_pmasuk.alamat_rumah','tb_pmasuk.id','tb_pmasuk.produk','tb_cluster.propinsi','tb_cluster.cluster'];
+
+    function make_query(){
+        $user= $this->db->get_where('tb_user',['email' => $this->session->userdata('email')]) ->row_array();
+        $this->db->select($this->select_column);
+        $this->db->where("tb_pmasuk.cluster=tb_cluster.cluster");
+        $this->db->where("tb_cluster.propinsi",$user['propinsi']);
+        $this->db->group_by("tb_pmasuk.cluster");
+        $this->db->from($this->table);
+        if(@$_POST["search"]["value"]){
+            $this->db->like("nama_pelanggan",@$_POST["search"]["value"]);
+        }
+        if(@$_POST["order"]){
+            $this->db->order_by($this->select_order[@$_POST['order']['0']['column']],@$_POST['order']['0']['dir']);
+        }else{
+            $this->db->order_by("id","DESC");
+        }
+    }
+
+    function make_datatables(){
+        $this->make_query();
+        if(@$_POST["length"]!=-1)
+        {
+            $this->db->limit(@$_POST["length"],@$_POST["start"]);
+        }
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function get_filtered(){
+        $this->make_query();
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+function get_all_data(){
+    $this->db->select("*");
+    $this->db->from($this->table);
+    return $this->db->count_all_results();
+}
     public function getDataByPropinsi($user){
         $this->db->select('*');
         $this->db->where('propinsi',$user['propinsi']);

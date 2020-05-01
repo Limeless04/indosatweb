@@ -38,13 +38,32 @@ $(document).ready(function() {
         }
     });
 });
-</script> -->
+</script>
 <script type="text/javascript">
 $(document).ready(function(){
     $('#propinsi').change(function(){
         var propinsi = $(this).val();
         $.ajax({
             url:'<?php echo base_url()."Cluster/get_cluster";?>',
+            method:'POST',
+            data:{propinsi:propinsi},
+            dataType:'json',
+            success:function(response){
+                $('#cluster').find('option').not(':first').remove();
+                $.each(response, function(index,data){
+                    $('#cluster').append('<option value="'+data['cluster']+'">'+data['kota']+'</option>');
+                });
+            }
+        });
+    });
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#propinsi').change(function(){
+        var propinsi = $(this).val();
+        $.ajax({
+            url:'<?php echo base_url()."Region/get_cluster";?>',
             method:'POST',
             data:{propinsi:propinsi},
             dataType:'json',

@@ -54,6 +54,7 @@ class Cluster extends CI_Controller {
         $this->load->view("cluster/email",$data);
         $this->load->view("templates/afooter");
     }
+
  
     public function addMsisdn(){
         $data['judul'] ="Cluster";
@@ -72,6 +73,43 @@ class Cluster extends CI_Controller {
          </div>');
          redirect('cluster/msisdn');
      }
+     function hapusMsisdn($id){
+        $this->Cluster_model->hapusMsisdn($id);
+        $this->session->set_flashdata('pesan','<div class="alert alert-success" role="alert">
+        Berhasil dihapus
+        </div>');
+        redirect('Cluster/msisdn');   
+     }
+
+
+    }
+    public function editUser($id){
+        $data['judul'] ="Region";
+        $data['user'] = $this->db->get_where('tb_user',['id' => $id]) ->row_array();
+        $this->form_validation->set_rules('nama','Nama','required|trim');
+        $this->form_validation->set_rules('email','Email','required');
+        $this->form_validation->set_rules('password','Password','required|trim|min_length[8]|matches[password2]',[
+        'matches' => 'Password dont match!',
+        'min_length' => 'Password too short!'
+        ]);
+        $this->form_validation->set_rules('password2','Password','required|trim|matches[password]',[
+        'matches' => 'Password dont match!',
+        'min_length' => 'Password too short!'
+        ]);
+        if($this->form_validation->run() == FALSE){
+            $this->load->view("templates/aheader",$data);
+            $this->load->view("templates/csidebar");
+            $this->load->view("cluster/editUser",$data);
+            $this->load->view("templates/afooter");
+        }else{
+            // $data=$this->input->post();
+            // var_dump($data);die;
+            $this->Cluster_model->editUserCluster($id);
+            $this->session->set_flashdata('pesan','<div class="alert alert-success" role="alert">
+            Berhasil diedit! Untuk Melihat Perubahan Silahkan Login Ulang.
+            </div>');
+            redirect('Cluster/email');
+        }
     }
 
     public function tambahUser(){
@@ -97,6 +135,14 @@ class Cluster extends CI_Controller {
         redirect('Cluster/email');
         }
     }
+    public function hapusUser($id){
+        $this->Cluster_model->hapusUserCluster($id);
+        $this->session->set_flashdata('pesan','<div class="alert alert-success" role="alert">
+        Berhasil dihapus
+        </div>');
+        redirect('Cluster/email');
+    }
+
     function get_cluster(){
         $propinsi= $this->input->post("propinsi");
 		$cluster = $this->Cluster_model->getCluster($propinsi);       
@@ -132,7 +178,8 @@ class Cluster extends CI_Controller {
         $sub_array[] = $row->msisdn;
         $sub_array[] = $row->cluster;
         $sub_array[] = $row->status;
-        $sub_array[] = $row->dibuat;
+        $newDate = date("d-M-Y H:i:s",strtotime($row->dibuat));
+        $sub_array[] = $newDate;
         $sub_array[] = '<button class="badge badge-pill badge-info"><a style="text-decoration:none;color:white;" href="'.base_url('Cluster/editStatus/'.$row->id).'">edit Status</a></button><br><button class="badge badge-pill badge-info"><a style="text-decoration:none;color:white;" href="'.base_url('Cluster/editData/'.$row->id).'">edit Data</a></button>';
         
         $data[] = $sub_array;
@@ -207,7 +254,28 @@ class Cluster extends CI_Controller {
         // $sub_array[]
         $sub_array[] = $row->msisdn;
         $sub_array[] = $row->cluster  ;
-        $sub_array[] = '<button class="badge badge-pill badge-info"><a style="text-decoration:none;color:white;" href="'.base_url('Cluster/editMsisdn/'.$row->id).'">Edit</a></button>';
+        $sub_array[] = '<button data-toggle="modal" data-target="#mymodal" class="badge badge-pill badge-danger">Hapus</button>
+         <!-- Modal -->
+            <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Apakah anda Yakin mengahapus</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Msisdn:'.$row->msisdn.'</p>
+                    <p>Cluster:'.$row->cluster.'</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger"><a  style="text-decoration:none;color:white;" href="'.base_url('Cluster/hapusMsisdn/'.$row->id).'">Hapus</a></button>
+                </div>
+                </div>
+            </div>
+            </div>';
         
         $data[] = $sub_array;
     }

@@ -143,14 +143,12 @@ function get_all_data(){
 
     Public function editProduk($id){
         $data=[
-            'id'=>$id,
             'nama_produk'=> $this->input->post('nama_produk',true),
             'harga' => $this->input->post('harga',true),
             'deskripsi' => $this->input->post('desc_produk',true),
-            'dibuat' => time(),
         ];
         $this->db->where('id',$id);
-        $this->db->replace('tb_produk',$data);
+        $this->db->update('tb_produk',$data);
     }
     Public function editUserRegion($id){
         $data=[

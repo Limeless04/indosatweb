@@ -201,7 +201,7 @@ class Region extends CI_Controller {
     }
     public function logOut(){
         $this->session->unset_userdata('email');
-        $this->session->unset_userdata('role_id');
+        $this->session->unset_userdata('id_role');
         $this->session->set_flashdata('logOut','<div class="alert alert-danger" role="alert">
         Anda berhasil keluar!</div>');
         redirect('Home');

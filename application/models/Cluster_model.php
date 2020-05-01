@@ -23,6 +23,7 @@ public function countMsisdn(){
            $this->db->or_like("no_wa",@$_POST["search"]["value"]);
            $this->db->or_like("msisdn",@$_POST["search"]["value"]);
            $this->db->or_like("produk",@$_POST["search"]["value"]);
+           $this->db->or_like("dibuat",@$_POST["search"]["value"]);
            $this->db->or_like("alamat_rumah",@$_POST["search"]["value"]);
            $this->db->or_like("status",@$_POST["search"]["value"]);
         }
@@ -108,6 +109,31 @@ public function tambahMsisdnBaru(){
         ];
         $this->db->insert('tb_user',$data);
     }
+    
+    Public function editUserCluster($id){
+        $data=[
+            'nama' => htmlspecialchars($this->input->post('nama',true)),
+            'email' => htmlspecialchars($this->input->post('email',true)),
+            'password' => password_hash($this->input->post('password',true),PASSWORD_DEFAULT),
+        ];
+        $this->db->where('id',$id);
+        $this->db->update('tb_user',$data);
+    }
+    Public function hapusUserCluster($id){
+        $data = [
+            'id' => $id
+        ];
+        $this->db->where($data);
+        $this->db->delete('tb_user');
+    }
+    Public function hapusMsisdn($id){
+        $data = [
+            'id' => $id
+        ];
+        $this->db->where($data);
+        $this->db->delete('tb_msisdn');
+    }
+
     function getDataById($id){
         return $this->db->get_where('tb_pmasuk',['id'=>$id])->row_array();
     }

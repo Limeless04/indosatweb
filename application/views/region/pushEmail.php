@@ -1,24 +1,6 @@
-<p><a href="<?= base_url("Region/pushEmail");?>">Export Ke excel</a></p>
 
-<table class="table">
-  <thead>
-    <tr>
-        <th scope="col">Cluster</th>
-        <th scope="col">Order</th>
-        <th scope="col">Sukses</th> 
-        <th scope="col">Reject</th>
-        <th scope="col">Progress</th>
-    </tr>
-  </thead>
-  <tbody>
-      <?php foreach($data as $d):?>
-          <tr>
-              <td><?= $d->cluster?></td>
-              <td><?= $d->order?></td>
-              <td><?= $d->sukses?></td>
-              <td><?= $d->reject?></td>
-              <td><?= $d->progress?></td>
-          </tr>
-      <?php endforeach;?>
-  </tbody>
-</table>
+<button class="btn btn-primary"><a style="text-decoration:none;color:white;" href="<?= base_url('Region/ExportExcelMonth');?>">Export To Excel (Bulan ini)</a></button>
+
+<button class="btn btn-primary"><a style="text-decoration:none;color:white;" href="<?= base_url('Region/ExportExcelAll');?>">Export To Excel (All)</a></button>
+
+<button class="btn btn-primary"><a style="text-decoration:none;color:white;" href="<?= base_url('Region/ExportExcelAll');?>">Push Email</a></button>

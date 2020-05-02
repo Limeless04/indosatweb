@@ -1,6 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class Region extends CI_Controller {
 
     public function __construct()
@@ -56,16 +60,76 @@ class Region extends CI_Controller {
     }
     public function pushEmail(){
         $data['judul'] ="Region";
-        $data = [
-            'data'=> $this->Region_model->listing(),
-            'sukses'=> $this->Region_model->listing(),
-            'reject'=> $this->Region_model->listing(),
-            'progress'=> $this->Region_model->listing(),
-        ];
         $this->load->view("templates/aheader",$data);
         $this->load->view("templates/asidebar");
         $this->load->view("region/pushEmail",$data);
         $this->load->view("templates/afooter");
+    }
+
+    function ExportExcelMonth(){
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $data = $this->Region_model->getAllReportBulanIni();
+        // var_dump($data);die;
+        $sheet->setCellValue('A1','Nama Pelanggan');
+        $sheet->setCellValue('B1','Nomor Wa');
+        $sheet->setCellValue('C1','Email');
+        $sheet->setCellValue('D1','Alamat Rumah');
+        $sheet->setCellValue('E1','Produk');
+        $sheet->setCellValue('F1','Cluster');
+        $sheet->setCellValue('G1','MSISDN');
+        $sheet->setCellValue('H1','Status');
+        $sheet->setCellValue('I1','Keterangan');
+        $sheet->setCellValue('J1','dibuat');
+
+        $i = 2;
+        foreach($data as $d){
+            $spreadsheet->setActiveSheetIndex(0)->setCellValue('A'.$i,$d['nama_pelanggan'])->setCellValue('B'.$i,$d['no_wa'])->setCellValue('C'.$i,$d['email'])->setCellValue('D'.$i,$d['alamat_rumah'])->setCellValue('E'.$i,$d['produk'])->setCellValue('F'.$i,$d['cluster'])->setCellValue('G'.$i,$d['msisdn'])->setCellValue('H'.$i,$d['status'])->setCellValue('I'.$i,$d['ket'])->setCellValue('J'.$i,$d['dibuat']);
+            $i++;
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        date_default_timezone_set("Asia/Jakarta");
+        $filename='reportOrder '.date("m-d-y");
+
+        header('Content-Type:application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'.$filename.'.xlsx"');
+        header('Cache-Control:max-age=0');
+
+        // $writer->save('php://output');
+        $data = $writer->save($filename.'xlxs');
+    }
+    function ExportExcelAll(){
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $data = $this->Region_model->getAllReport();
+        // var_dump($data);die;
+        $sheet->setCellValue('A1','Nama Pelanggan');
+        $sheet->setCellValue('B1','Nomor Wa');
+        $sheet->setCellValue('C1','Email');
+        $sheet->setCellValue('D1','Alamat Rumah');
+        $sheet->setCellValue('E1','Produk');
+        $sheet->setCellValue('F1','Cluster');
+        $sheet->setCellValue('G1','MSISDN');
+        $sheet->setCellValue('H1','Status');
+        $sheet->setCellValue('I1','Keterangan');
+        $sheet->setCellValue('J1','dibuat');
+
+        $i = 2;
+        foreach($data as $d){
+            $spreadsheet->setActiveSheetIndex(0)->setCellValue('A'.$i,$d['nama_pelanggan'])->setCellValue('B'.$i,$d['no_wa'])->setCellValue('C'.$i,$d['email'])->setCellValue('D'.$i,$d['alamat_rumah'])->setCellValue('E'.$i,$d['produk'])->setCellValue('F'.$i,$d['cluster'])->setCellValue('G'.$i,$d['msisdn'])->setCellValue('H'.$i,$d['status'])->setCellValue('I'.$i,$d['ket'])->setCellValue('J'.$i,$d['dibuat']);
+            $i++;
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        date_default_timezone_set("Asia/Jakarta");
+        $filename='reportAllOrder '.date("m-d-y");
+
+        header('Content-Type:application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'.$filename.'.xlsx"');
+        header('Cache-Control:max-age=0');
+
+        $writer->save('php://output'); 
     }
 
     function sendEmailToPelanggan(){
@@ -229,11 +293,19 @@ class Region extends CI_Controller {
         $sub_array = array();
         $sub_array[] = $row->cluster;
         $sub_array[] = $row->order;
-        foreach($getReportS as $row){
-            $sub_array[] = $row->sukses;
+        if(empty($getReportS)){
+            $sub_array[]="kosong";
+        }else{
+            foreach($getReportS as $row){
+                $sub_array[] = $row->sukses;
+            }
         }
-        foreach($getReportR as $row){
-            $sub_array[]=$row->reject;
+        if(empty($getReportR)){
+            $sub_array[]="kosong";
+        }else{
+            foreach($getReportR as $row){
+                $sub_array[]=$row->reject;
+            }
         }
         foreach($getReportP as $row){
             $sub_array[]=$row->progress;

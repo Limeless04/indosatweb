@@ -232,6 +232,9 @@ class Cluster extends CI_Controller {
         // $data['userCluster'] = $this->Cluster_model->getDataByPropinsi($user);
         $data['notif'] =$this->Cluster_model->countMsisdn();
         $this->form_validation->set_rules('status','Status','required');
+        if($this->input->post("status") =="reject"){
+            $this->form_validation->set_rules('ket','Keterangan','required');
+        }
         if($this->form_validation->run() == FALSE){
             $this->load->view("templates/aheader",$data);
             $this->load->view("templates/csidebar");

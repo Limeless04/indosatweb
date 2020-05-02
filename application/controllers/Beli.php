@@ -30,8 +30,7 @@ class Beli extends CI_Controller {
         $this->load->view('templates/header',$data);
         $this->load->view('beli/index',$data);  
     }else{
-        // $data=$this->input->post();
-        // var_dump($data);die;
+        //send email
         $this->sendEmailToPelanggan();
         foreach($to_email as $e){
             $this->sendEmailToPic($e);

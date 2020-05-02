@@ -138,9 +138,16 @@ public function tambahMsisdnBaru(){
         return $this->db->get_where('tb_pmasuk',['id'=>$id])->row_array();
     }
     function editClusterStatus($id){
-        $data =[
-            'status'=>$this->input->post('status')
-        ];
+        if($this->input->post('status')!="reject"){
+            $data =[
+                'status'=>$this->input->post('status')
+            ];
+        }else{
+            $data =[
+                'status'=>$this->input->post('status'),
+                'ket'=>$this->input->post('ket')
+            ];
+        }
         $this->db->where('id',$id);
         $this->db->update('tb_pmasuk',$data);
     }

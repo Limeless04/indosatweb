@@ -193,32 +193,19 @@ function get_all_data(){
         return $query->result_array();
     
     }
-    var $select_list = ['nama_pelanggan','no_wa','cluster','dibuat','status','msisdn','alamat_rumah','tb_pmasuk.id','produk','cluster','COUNT("nama_pelanggan") as "order"','COUNT("status") as sukses','COUNT("status") as reject','COUNT("status") as progress'];
-    public function listing(){
-        $this->db->select($this->select_list);
-        $this->db->group_by("cluster");
-        $query = $this->db->get("tb_pmasuk");
-        return $query->result();
+
+    function getAllReportBulanIni(){
+        $user= $this->db->get_where('tb_user',['email' => $this->session->userdata('email')]) ->row_array();
+        $this->db->select('tb_pmasuk.*,tb_cluster.*');
+        $this->db->where('tb_pmasuk.cluster=tb_cluster.cluster');
+        $this->db->where('tb_cluster.propinsi',$user['propinsi']);
+        $this->db->where('MONTH(dibuat)=MONTH(CURDATE())');
+        $this->db->from('tb_pmasuk,tb_cluster');
+        return $this->db->get()->result_array();
     }
-    public function listing_sukses(){
-        $this->db->select($this->select_list);
-       $this->db->where("status","sukses");
-       $this->db->group_by("cluster");
-        $query = $this->db->from("tb_pmasuk");
-        return $query ->result();
+
+    function getAllReport(){
+        return $this->db->get("tb_pmasuk")->result_array();
     }
-    public function listing_reject(){
-        $this->db->select($this->select_list);
-       $this->db->where("status","reject");
-       $this->db->group_by("cluster");
-        $query = $this->db->from("tb_pmasuk");
-        return $query ->result();
-    }
-    public function listing_progress(){
-        $this->db->select($this->select_list);
-       $this->db->where("status","progress");
-       $this->db->group_by("cluster");
-        $query = $this->db->from("tb_pmasuk");
-        return $query ->result();
-    }
+   
 }

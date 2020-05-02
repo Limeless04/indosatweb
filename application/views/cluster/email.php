@@ -8,6 +8,7 @@
       <th scope="col">Nama Lengkap</th>
       <th scope="col">Email</th>
       <th scope="col">Cluster</th>
+      <th scope="col">Tipe Akun</th>
       <th scope="col">Aksi</th>
     </tr>
   </thead>
@@ -22,6 +23,11 @@
       <td><?= $p['nama'];?></td>
       <td><?=$p["email"];?></td>
       <td><?= $p["cluster"];?></td>
+      <?php if($p["id_role"]=="1"):?>
+      <td><?= "Region"?></td>
+      <?php else:?>
+        <td><?= "Cluster"?></td>
+      <?php endif;?>
       <td><button type="button" class="badge badge-pill badge-danger" data-toggle="modal" data-target="#emailModal">Hapus</button><br> <a href="<?= base_url("Cluster/");?>editUser/<?= $p['id'];?>" class="badge badge-info">Edit</a></td>
     </tr>
     <?php endforeach;?>

@@ -153,7 +153,7 @@ class Cluster extends CI_Controller {
         echo $this->Cluster_model->getReport();// konversi varibael $callback menjadi JSON
     }
 
-
+ 
     function getAllReport(){
        header('Content-Type:application/json');
        echo $this->Cluster_model->getAllReportData();     

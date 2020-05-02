@@ -13,6 +13,8 @@ class Region extends CI_Controller {
 		$this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
         $this->load->model("Region_model");
+        $this->load->library('upload');
+        $this->load->library('email');
         if($this->session->userdata('id_role')!=1){
             redirect('Auth');
         }
@@ -58,11 +60,11 @@ class Region extends CI_Controller {
         $this->load->view("region/pic",$data);
         $this->load->view("templates/afooter");
     }
-    public function pushEmail(){
+    public function pushReport(){
         $data['judul'] ="Region";
         $this->load->view("templates/aheader",$data);
         $this->load->view("templates/asidebar");
-        $this->load->view("region/pushEmail",$data);
+        $this->load->view("region/pushReport",$data);
         $this->load->view("templates/afooter");
     }
 
@@ -96,8 +98,7 @@ class Region extends CI_Controller {
         header('Content-Disposition: attachment;filename="'.$filename.'.xlsx"');
         header('Cache-Control:max-age=0');
 
-        // $writer->save('php://output');
-        $data = $writer->save($filename.'xlxs');
+        $writer->save('php://output');
     }
     function ExportExcelAll(){
         $spreadsheet = new Spreadsheet();
@@ -120,37 +121,85 @@ class Region extends CI_Controller {
             $spreadsheet->setActiveSheetIndex(0)->setCellValue('A'.$i,$d['nama_pelanggan'])->setCellValue('B'.$i,$d['no_wa'])->setCellValue('C'.$i,$d['email'])->setCellValue('D'.$i,$d['alamat_rumah'])->setCellValue('E'.$i,$d['produk'])->setCellValue('F'.$i,$d['cluster'])->setCellValue('G'.$i,$d['msisdn'])->setCellValue('H'.$i,$d['status'])->setCellValue('I'.$i,$d['ket'])->setCellValue('J'.$i,$d['dibuat']);
             $i++;
         }
-
         $writer = new Xlsx($spreadsheet);
         date_default_timezone_set("Asia/Jakarta");
         $filename='reportAllOrder '.date("m-d-y");
-
         header('Content-Type:application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="'.$filename.'.xlsx"');
         header('Cache-Control:max-age=0');
-
-        $writer->save('php://output'); 
+        $writer->save("php://output");
+    }
+    
+    function do_upload(){
+        $config['upload_path']          = './assets/uploads/';
+        $config['allowed_types']        = 'xlsx|xls';
+        $config['max_size']             = 40000;
+        $config['overwrite']             = TRUE;
+        $this->upload->initialize($config);
+        $data['judul'] ="Region";
+        $to_email = $this->Region_model->getEmail();
+         if (!$this->upload->do_upload('report'))
+         {
+                 $error = array('error' => $this->upload->display_errors());
+                 $this->load->view("templates/aheader",$data);
+                 $this->load->view("templates/asidebar");
+                 $this->load->view("region/sendReport",$error);
+                 $this->load->view("templates/afooter");
+         }
+         else
+         {
+             foreach($to_email as $e){
+                $this->sendEmailToPic($e);
+            }
+                 $this->load->view("templates/aheader",$data);
+                 $this->load->view("templates/asidebar");
+                 $this->load->view("region/pushReport",$data);
+                 $this->load->view("templates/afooter");
+         }
+        //  redirect('region/produk');
     }
 
-    function sendEmailToPelanggan(){
-        $from_email = $this->session->userdata('email');
-        $to_email = $this->input->post('email');
+    function sendEmailToPic($e){
+        $config = Array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'smtp.gmail.com',
+            'smtp_port' => 465,
+            'smtp_crypto'  =>'ssl',
+            'smtp_user' => 'examplemai04l@gmail.com', // change it to yours
+            'smtp_pass' => 'Xlim2504', // change it to yours
+            'mailtype' => 'html',
+            'smtp_timeout' =>'10',
+            'charset' => 'iso-8859-1',
+            'wordwrap' => TRUE,
+            'newline' => "\r\n",
+            'validation' => TRUE
+            ); 
+        $this->email->initialize($config);
+        $from_email = "examplemai04l@gmail.com";//email default
+        $nama = $this->input->post('nama_pelanggan',true);
+        $no_wa = $this->input->post('nomor_wa',true);
+        $email = $this->input->post('email',true);
+        $alamat= $this->input->post('alamat_rumah',true);
+        $produk = $this->input->post('produk',true);
+        $msisdn = $this->input->post('msisdn',true);
+        date_default_timezone_set("Asia/Jakarta");
+        $date = date('d-m-Y');
+        $time  = date('H:i:s'); 
+        $htmlContent = "Report Bulanan Orderan Bulan ".data("M");
+        $data = $this->upload->data();
         //Load email library
-        $this->email->from($from_email, 'Identification');
-        $this->email->to($to_email);
-        $this->email->subject('Notifkasi Pesanan Baru');
-        $this->email->message('The email send using codeigniter library');
+        $this->email->from($from_email, 'Report Bulanan');
+        $this->email->to($e);
+        $this->email->subject('New Order');
+        $this->email->message($htmlContent);
+        $this->email->attach("./assets/uploads/".$data["file_name"]);
         //Send mail
-        if($this->email->send())
-            $this->session->set_flashdata("email_sent","Congragulation Email Send Successfully.");
-        else
-            $this->session->set_flashdata("email_sent","You have encountered an error");
-        $this->load->view('contact_email_form');
-    }
+        if(!$this->email->send()){
+            show_error($this->email->print_debugger());
+          }
+     }
 
-
-
-    public function createProduk(){
+     public function createProduk(){
         $data['judul'] ="Region";
         $this->form_validation->set_rules('nama_produk','Nama Produk','required');
         $this->form_validation->set_rules('harga','Harga','required');

@@ -59,6 +59,7 @@ function get_all_data(){
         $this->db->select('*');
         $this->db->where('propinsi',$user['propinsi']);
         $this->db->where('cluster',$user['cluster']);
+        $this->db->where('id_role',$user['id_role']);        
         $query = $this->db->get('tb_user');
         return $query->result_array();
     }

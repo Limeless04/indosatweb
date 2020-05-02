@@ -12,7 +12,7 @@
                 <a href="<?= base_url('region/');?>report">Report</a>
             </li>
             <li>
-                <a href="<?= base_url('region/');?>pushEmail">Push Via Email</a>
+                <a href="<?= base_url('region/');?>pushReport">Push Via Email</a>
             </li>
             <li>
                 <a href="<?= base_url('region/');?>pic">Update PIC region</a>

@@ -1,4 +1,4 @@
 <div class="container">
 <h1>Pembelian Sukses</h1>
-<p>Silahkan Melanjutkan proses transaksinya</p>
+<p>Terima kasih atas transaksi Anda Mohon ditunggu, Layanan penjualan kami akan segera menghubungi anda </p>
 </div>

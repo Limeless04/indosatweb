@@ -98,14 +98,12 @@ class Beli extends CI_Controller {
         $nama = $this->input->post('nama_pelanggan',true);
         $no_wa = $this->input->post('nomor_wa',true);
         $email = $this->input->post('email',true);
-        $alamat= $this->input->post('alamat_rumah',true);
-        $produk = $this->input->post('produk',true);
-        $msisdn = $this->input->post('msisdn',true);
+        $data = $this->session->userdata('input1');
         date_default_timezone_set("Asia/Jakarta");
         $date = date('d-m-Y');
         $time  = date('h:i:s'); 
         $message = "<p>Pada tanggal, ". $date. " Jam ". $time . " telah masuk Order baru dengan data sebagai berikut : </>
-        <p>Produk:".$produk."</p>\r\n<p>Msisdn: ".$msisdn."</p>\r\n<p>Data Pelanggan: </p>\r\n<p>Nama: ".$nama."</p>\r\n<p>Alamat: ".$alamat."</p>\r\n<p>Nomor wa: ".$no_wa."</p>\r\n<p>Email: ".$email."</p>";
+        <p>Produk:".$data['produk']."</p>\r\n<p>Msisdn: ".$data['msisdn']."</p>\r\n<p>Data Pelanggan: </p>\r\n<p>Nama: ".$nama."</p>\r\n<p>Alamat: ".$alamat."</p>\r\n<p>Nomor wa: ".$no_wa."</p>\r\n<p>Email: ".$email."</p>";
 
         //Load email library
         $this->email->from($from_email);
@@ -137,11 +135,12 @@ class Beli extends CI_Controller {
         $alamat= $this->input->post('alamat_rumah',true);
         $produk = $this->input->post('produk',true);
         $msisdn = $this->input->post('msisdn',true);
+        $data = $this->session->userdata('input1');
         date_default_timezone_set("Asia/Jakarta");
         $date = date('d-m-Y');
         $time  = date('H:i:s'); 
         $htmlContent = "<p>Pada tanggal, ". $date. " Jam ". $time . " telah masuk Order baru dengan data sebagai berikut : </p>
-        <p>Produk:".$produk."</p>\r\n<p>Msisdn: ".$msisdn."</p>\r\n<p>Data Pelanggan: </p>\r\n<p>Nama: ".$nama."</p>\r\n<p>Alamat: ".$alamat."</p>\r\n<p>Nomor wa: ".$no_wa."</p>\r\n<p>Email: ".$email."</p><a href='http://localhost/indosat/Cluster/konfirmasi'>Konfirmasi</a>";
+        <p>Produk:".$data['produk']."</p>\r\n<p>Msisdn: ".$produk['cluster']."</p>\r\n<p>Data Pelanggan: </p>\r\n<p>Nama: ".$nama."</p>\r\n<p>Alamat: ".$alamat."</p>\r\n<p>Nomor wa: ".$no_wa."</p>\r\n<p>Email: ".$email."</p><a href='http://localhost/indosat/Cluster/konfirmasi'>Konfirmasi</a>";
         //Load email library
         $this->email->from($from_email, 'Orderan Baru');
         $this->email->to($e);

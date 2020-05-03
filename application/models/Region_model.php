@@ -121,8 +121,6 @@ function get_all_data(){
     public function getDataByPropinsi($user){
         $this->db->select('*');
         $this->db->where('propinsi',$user['propinsi']);
-        $this->db->where('cluster',$user['cluster']);
-        $this->db->where('id_role',$user['id_role']);
         $query = $this->db->get('tb_user');
         return $query->result_array();
     }
@@ -161,18 +159,12 @@ function get_all_data(){
         $this->db->update('tb_user',$data);
     }
     Public function hapusProduk($id){
-        $data = [
-            'id' => $id
-        ];
-        $this->db->where($data);
+        $this->db->where('id',$id);
         $this->db->delete('tb_produk');
     }
 
     Public function hapusUserRegion($id){
-        $data = [
-            'id' => $id
-        ];
-        $this->db->where($data);
+        $this->db->where('id',$id);
         $this->db->delete('tb_user');
     }
 

@@ -54,6 +54,16 @@
         </select>
     </div>
     </div>
+    <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Role</label>
+        <div class="col-sm-10">
+        <select name="role" id="role" class="form-control">
+         <option value="">Pilih Role....</option>
+         <option value="1">Akun Region</option>
+         <option value="2">Akun Cluster</option>   
+        </select>
+    </div>
+    </div>
     <button type="submit" class="btn" id="btn_submit">Submit</button>
     </form>
 </div>

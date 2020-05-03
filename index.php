@@ -42,10 +42,10 @@ switch ($_SERVER['HTTP_HOST']) {
 	case 'localhost':
 		$env = 'development';
 		break;
-	case 'www.webster.epizy.com':
+	case 'https://xlimm.000webhostapp.com/':
 		$env = 'testing';
 		break;
-	case 'www.production.com':
+	case 'http://internetancepat.com/':
 		$env = 'production';
 		break;
 	default:

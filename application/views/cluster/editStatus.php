@@ -4,8 +4,12 @@
     <div class="form-group row">
         <label for="inputEmail3" class="col-sm-2 col-form-label">Status</label>
         <div class="col-sm-10">
-        <input type="text" class="form-control" id="nama_produk" name="status" value="<?= set_value('status');?>" placeholder="<?= $edit['status'];?>">
-        <?= form_error('status','<small class="text-danger pl-3">','</small>');?>
+        <select name="status" id="nama_produk" class="form-control" >
+        <option value="">Pilih Status</option>
+        <option value="suksess">Suksess</option>
+        <option value="progress">Progress</option>
+        <option value="reject">Reject</option>
+        </select>
         </div>
     </div>
     <div class="form-group row">
@@ -15,6 +19,8 @@
         <?= form_error('ket','<small class="text-danger pl-3">','</small>');?>
         </div>
     </div>
+    <input type="hidden" name="msisdn" value="<?= $edit["msisdn"];?>">
+    <input type="hidden" name="cluster" value="<?= $edit["cluster"];?>">
     <button type="submit" class="btn" id="btn_submit">Submit</button>
     </form>
 </div> 

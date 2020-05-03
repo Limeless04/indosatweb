@@ -2,7 +2,7 @@
 
 class Cluster_model extends CI_model{
     var $table = "tb_pmasuk";
-    var $select_order = ['nama_pelanggan','no_wa','alamat_rumah','produk','msisdn','cluster','status','MONTH(NOW())'];
+    var $select_order = ['nama_pelanggan','no_wa','alamat_rumah','produk','msisdn','cluster','status','MONTH(NOW())','MONTH(dibuat)'];
     var $select_column = ['nama_pelanggan','no_wa','cluster','dibuat','msisdn','alamat_rumah','id','produk','status'];
 public function countMsisdn(){
         $count = $this->db->count_all('tb_msisdn');
@@ -23,7 +23,7 @@ public function countMsisdn(){
            $this->db->or_like("no_wa",@$_POST["search"]["value"]);
            $this->db->or_like("msisdn",@$_POST["search"]["value"]);
            $this->db->or_like("produk",@$_POST["search"]["value"]);
-           $this->db->or_like("dibuat",@$_POST["search"]["value"]);
+           $this->db->or_like("MONTH('dibuat')",@$_POST["search"]["value"]);
            $this->db->or_like("alamat_rumah",@$_POST["search"]["value"]);
            $this->db->or_like("status",@$_POST["search"]["value"]);
         }
@@ -63,9 +63,11 @@ function get_all_data(){
         $query = $this->db->get('tb_user');
         return $query->result_array();
     }
-public function tambahMsisdnBaru(){
+    public function tambahMsisdnBaru(){
+        $user= $this->db->get_where('tb_user',['email' => $this->session->userdata('email')]) ->row_array();
         $data=[
             'msisdn' => $this->input->post('msisdn',true),
+            'cluster' => $user["cluster"],
         ];   
         $this->db->insert("tb_msisdn",$data);
     }
@@ -91,8 +93,7 @@ public function tambahMsisdnBaru(){
     function getReport(){
         $user= $this->db->get_where('tb_user',['email' => $this->session->userdata('email')]) ->row_array();
         $this->datatables->select("nama_pelanggan,no_wa,produk,msisdn");
-        // $this->datatables->filter("nama_pelanggan,no_wa,produk,msisdn");
-        $this->datatables->where("depo",$user['cluster']);
+        // $this->datatables->filter("nama_pelanggan,no_wa,produk,msisdn"        $this->datatables->where("depo",$user['cluster']);
         $this->datatables->from("tb_pmasuk");
         return $this->datatables->generate();
     }
@@ -133,6 +134,34 @@ public function tambahMsisdnBaru(){
         ];
         $this->db->where($data);
         $this->db->delete('tb_msisdn');
+    }
+
+    function make_query_progress(){
+        $user= $this->db->get_where('tb_user',['email' => $this->session->userdata('email')]) ->row_array();
+        $this->db->select($this->select_column);
+        $this->db->where("'dibuat' <= 'DATEADD(day,5,dibuat'");
+        $this->db->where("cluster",$user['cluster']);
+        $this->db->like("status","progress");
+        $this->db->group_by("tb_pmasuk.cluster");
+        $this->db->from($this->table);
+        if(@$_POST["search"]["value"]){
+            $this->db->like("nama_pelanggan",@$_POST["search"]["value"]);
+        }
+        if(@$_POST["order"]){
+            $this->db->order_by($this->select_order[@$_POST['order']['0']['column']],@$_POST['order']['0']['dir']);
+        }else{
+            $this->db->order_by("id","DESC");
+        }
+    }
+
+    function make_datatables_progress(){
+        $this->make_query_progress();
+        if(@$_POST["length"]!=-1)
+        {
+            $this->db->limit(@$_POST["length"],@$_POST["start"]);
+        }
+        $query = $this->db->get();
+        return $query->result();
     }
 
     function getDataById($id){

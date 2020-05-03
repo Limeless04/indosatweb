@@ -257,17 +257,9 @@ class Region extends CI_Controller {
         }
         $this->form_validation->set_rules('nama','Nama','required|trim');
         $this->form_validation->set_rules('email','Email','required|trim|valid_email|is_unique[tb_user.email]');
-        // $this->form_validation->set_rules('password','Password','required|trim|min_length[8]|matches[password2]',[
-        //     'matches' => 'Password dont match!',
-        //     'min_length' => 'Password too short!'
-        //     ]);
-        // $this->form_validation->set_rules('password2','Password','required|trim|matches[password]',[
-        //     'matches' => 'Password dont match!',
-        //     'min_length' => 'Password too short!'
-        //     ]);
         $this->form_validation->set_rules('cluster','Cluster','required');
         $this->form_validation->set_rules('propinsi','Propinsi','required');
-        // $this->form_validation->set_rules('role','Role','required');
+        $this->form_validation->set_rules('role','Role','required');
         if($this->form_validation->run()==FALSE){
         $data['judul']='Daftar';
         $this->load->view('templates/aheader',$data);

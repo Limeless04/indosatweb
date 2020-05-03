@@ -1,6 +1,5 @@
 <?=$this->session->flashdata('notif');?>
 <?=$this->session->flashdata('pesan');?>
-<button class="btn_produk"><a href="<?= base_url('Cluster/');?>tambahUser">Tambah User</a></button>
 <table class="table">
   <thead id="thead">
     <tr>

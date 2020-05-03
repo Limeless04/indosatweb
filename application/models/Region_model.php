@@ -182,7 +182,7 @@ function get_all_data(){
             'email' => htmlspecialchars($this->input->post('email',true)),
             'propinsi' => htmlspecialchars($this->input->post('propinsi',true)),
             'password' => password_hash('1234abcd',PASSWORD_DEFAULT),
-            'id_role' => '1',
+            'id_role' => htmlspecialchars($this->input->post('role',true)),
             'cluster' => htmlspecialchars($this->input->post('cluster',true)),
             'dibuat' => date("Y-m-d H:i:s")
         ];

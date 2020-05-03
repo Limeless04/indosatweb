@@ -8,16 +8,17 @@
     <link rel="stylesheet" href="<?= base_url("assets/");?>css/bootstrap.css">
     <link rel="stylesheet" href="<?= base_url("assets/");?>css/style.css">
     <link rel="stylesheet" href="<?= base_url("assets/");?>css/sidebar.css">
+    <link rel="stylesheet" href="<?= base_url("assets/");?>fontawesome/css/all.css">
     <link rel="shortcut icon" type="image/x-icon" href="<?= base_url("assets/");?>img/logo_im3.svg">
     <title><?= $judul;?></title>
 
 </head>
 <body>
 <div class="container" id="navcontainer">
-<nav class="navbar navbar-expand-lg"  >
+<nav class="navbar navbar-expand-lg ">
   <a class="navbar-brand" href="<?= base_url('home/');?>" id="logo_im3"><img src="<?= base_url('assets/');?>img/logo_im3.svg" alt=""></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" id="btn_navbar" >
-    <span class="navbar-toggler-icon"></span>
+  <i class="fas fa-bars"></i>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">

@@ -148,10 +148,10 @@ class Cluster extends CI_Controller {
 		$cluster = $this->Cluster_model->getCluster($propinsi);       
         echo json_encode($cluster);// konversi varibael $callback menjadi JSON
     }
-    function get_report(){
-        header('Content-Type:application/json');       
-        echo $this->Cluster_model->getReport();// konversi varibael $callback menjadi JSON
-    }
+    // function get_report(){
+    //     header('Content-Type:application/json');       
+    //     echo $this->Cluster_model->getReport();// konversi varibael $callback menjadi JSON
+    // }
 
  
     function getAllReport(){
@@ -178,7 +178,7 @@ class Cluster extends CI_Controller {
         $sub_array[] = $row->msisdn;
         $sub_array[] = $row->cluster;
         $sub_array[] = $row->status;
-        $newDate = date("d-M-Y H:i:s",strtotime($row->dibuat));
+        $newDate = date("d-m-y H:i:s",strtotime($row->dibuat));
         $sub_array[] = $newDate;
         $sub_array[] = '<button class="badge badge-pill badge-info"><a style="text-decoration:none;color:white;" href="'.base_url('Cluster/editStatus/'.$row->id).'">edit Status</a></button><br><button class="badge badge-pill badge-info"><a style="text-decoration:none;color:white;" href="'.base_url('Cluster/editData/'.$row->id).'">edit Data</a></button>';
         
@@ -192,6 +192,53 @@ class Cluster extends CI_Controller {
     );
     echo json_encode($output);
     }
+    function getReportProgress(){
+        $getReport = $this->Cluster_model->make_datatables_progress();
+        if(empty($getReport)){
+            $data = array();
+            foreach($getReport as $row){
+            $sub_array = array();
+            // $sub_array[]
+            $sub_array[] = $row->nama_pelanggan;
+            $sub_array[] = $row->no_wa;
+            $sub_array[] = $row->alamat_rumah  ;
+            $sub_array[] = $row->produk;
+            $sub_array[] = $row->msisdn;
+            $sub_array[] = $row->cluster;
+            $sub_array[] = $row->status;
+            $newDate = date("d-M-Y H:i",strtotime($row->dibuat));
+            $sub_array[] = $newDate;
+            $sub_array[] = '<button class="badge badge-pill badge-info"><a style="text-decoration:none;color:white;" href="'.base_url('Cluster/editStatus/'.$row->id).'">edit Status</a></button><br><button class="badge badge-pill badge-info"><a style="text-decoration:none;color:white;" href="'.base_url('Cluster/editData/'.$row->id).'">edit Data</a></button>';
+            $data[] = $sub_array;
+        }          
+        }else{
+            $data = array();
+            foreach($getReport as $row){
+            $sub_array = array();
+            // $sub_array[]
+            $sub_array[] = $row->nama_pelanggan;
+            $sub_array[] = $row->no_wa;
+            $sub_array[] = $row->alamat_rumah  ;
+            $sub_array[] = $row->produk;
+            $sub_array[] = $row->msisdn;
+            $sub_array[] = $row->cluster;
+            $sub_array[] = $row->status;
+            $newDate = date("d-M-Y H:i",strtotime($row->dibuat));
+            $sub_array[] = $newDate;
+            $sub_array[] = '<button class="badge badge-pill badge-info"><a style="text-decoration:none;color:white;" href="'.base_url('Cluster/editStatus/'.$row->id).'">edit Status</a></button><br><button class="badge badge-pill badge-info"><a style="text-decoration:none;color:white;" href="'.base_url('Cluster/editData/'.$row->id).'">edit Data</a></button>';
+            $data[] = $sub_array;
+        }
+    }
+    $output = array(
+        "draw" =>intval(@$_POST["draw"]),
+        "recordsTotal"=>$this->Cluster_model->get_all_data(),
+        "recordsFiltered" =>$this->Cluster_model->get_filtered(),
+        "data" => $data
+    );
+    echo json_encode($output);
+    }
+
+
     function editData($id){
         $data['judul'] ="Cluster";
         $data['heading'] = "Dashboard Cluster";
@@ -234,6 +281,7 @@ class Cluster extends CI_Controller {
         $this->form_validation->set_rules('status','Status','required');
         if($this->input->post("status") =="reject"){
             $this->form_validation->set_rules('ket','Keterangan','required');
+            $this->Cluster_model->tambahMsisdnBaru();
         }
         if($this->form_validation->run() == FALSE){
             $this->load->view("templates/aheader",$data);

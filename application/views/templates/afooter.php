@@ -84,8 +84,30 @@ $(document).ready(function(){
         'serverSide':true,
         "order":[],
         "searchable":true,
+        "lengthMenu":[[5,10,20,50,-1],[5,10,20,50,"All"]],
         "ajax":{
             url:"<?php echo base_url().'Cluster/getReport';?>",
+            type:"POST",
+        },
+        "columnDefs":[
+            {
+                "target":[0,3,4],
+                "orderable":true,
+            }
+        ]
+       });
+    });
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+  var dataTable = $('#reportTable-progress').DataTable({
+        "processing":true,
+        'serverSide':true,
+        "order":[],
+        "searchable":true,
+        "lengthMenu":[[5,10,20,50,-1],[5,10,20,50,"All"]],
+        "ajax":{
+            url:"<?php echo base_url().'Cluster/getReportProgress';?>",
             type:"POST",
         },
         "columnDefs":[

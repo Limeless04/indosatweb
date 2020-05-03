@@ -5,6 +5,7 @@ class Auth extends CI_Controller {
     public function __construct(){
         parent::__construct();
         $this->load->library('form_validation');
+        $this->load->library('user_agent');
         $this->load->model('Auth_model');
         
     }
@@ -22,6 +23,7 @@ class Auth extends CI_Controller {
     }
 
     private function _login(){
+        // $agent = $this->request->getUserAgent();
         $email = $this->input->post('email');
         $password = $this->input->post('password');
         $user = $this->db->get_where('tb_user',['email'=>$email])->row_array();
@@ -36,7 +38,12 @@ class Auth extends CI_Controller {
                         'cluster' =>$user['cluster']
                     ];
                     $this->session->set_userdata($data);
-                    redirect('Region');
+                    //redirect('Region');
+                    if($this->$agent->isReferal){
+                        echo $agent->referer();
+                    }else{
+                        redirect("Region");
+                    }
                 }else{
                     $this->session->set_flashdata('notif','<div class="alert alert-danger" role="alert">
                     Password salah!

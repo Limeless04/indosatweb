@@ -7,7 +7,7 @@
 <script src="<?= base_url('assets/');?>js/popper.min.js">   </script>
 <script src="<?= base_url('assets/');?>js/bootstrap.js">   </script>
 <script src="<?= base_url('assets/');?>js/sidebar.js">   </script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $(document).ready(function(){
     $('#depo').change(function(){ 
         $.ajax({
@@ -29,7 +29,25 @@ $(document).ready(function(){
     }); 
 
 });
-
+</script> -->
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#depo').change(function(){
+        var depo = $(this).val();
+        $.ajax({
+            url:'<?php echo base_url("Beli/get_msisdn");?>',
+            method:'POST',
+            data:{depo:depo},
+            dataType:'json',
+            success:function(response){
+                $('#msisdn').find('option').not(':first').remove();
+                $.each(response, function(index,data){
+                    $('#msisdn').append('<option value="'+data['msisdn']+'">'+data['msisdn']+'</option>');
+                });
+            }
+        });
+    });
+});
 </script>
 
 </body>

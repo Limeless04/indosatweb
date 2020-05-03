@@ -7,6 +7,8 @@
       <th scope="col">Nama Lengkap</th>
       <th scope="col">Email</th>
       <th scope="col">Region</th>
+      <th scope="col">Cluster</th>
+      <th scope="col">Role</th>
       <th scope="col">Aksi</th>
     </tr>
   </thead>
@@ -21,6 +23,8 @@
       <td><?= $p['nama'];?></td>
       <td><?=$p["email"];?></td>
       <td><?= $p["propinsi"];?></td>
+      <td><?= $p["cluster"];?></td>
+      <td><?= $p["id_role"];?></td>
       <td><a href="<?= base_url("Region/");?>hapusUserRegion/<?= $p['id'];?>" class="badge badge-danger">Hapus</a> <br> <a href="<?= base_url("Region/");?>editUserRegion/<?= $p['id'];?>" class="badge badge-info">Edit</a></td>
     </tr>
     <?php endforeach;?>

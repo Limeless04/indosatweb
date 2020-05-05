@@ -118,9 +118,8 @@ function get_all_data(){
     $this->db->from($this->table);
     return $this->db->count_all_results();
 }
-    public function getDataByPropinsi($user){
+    public function getDataByPropinsi(){
         $this->db->select('*');
-        $this->db->where('propinsi',$user['propinsi']);
         $query = $this->db->get('tb_user');
         return $query->result_array();
     }

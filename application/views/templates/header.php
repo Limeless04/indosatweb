@@ -26,16 +26,10 @@
         <a class="nav-link" href="<?= base_url();?>">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Address</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">PIC</a>
+        <a class="nav-link" href="#">Produk</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Contact</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">FAQ</a>
       </li>
     </ul>
   </div>

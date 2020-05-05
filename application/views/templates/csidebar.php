@@ -4,7 +4,6 @@
         <div class="sidebar-header">
         <img src="<?= base_url('assets/');?>img/logo_im3.svg" id="logo_im3" alt="">
         </div>
-
         <ul class="list-unstyled components">
             <h4><a href="<?= base_url('Cluster/');?>">Dashboard</a></h4>
             
@@ -15,7 +14,7 @@
                 <a href="<?= base_url('Cluster/');?>msisdn">Add/Update MSISDN</a>
             </li>
             <li>
-                <a href="<?= base_url('Cluster/');?>email">Add/Update Email</a>
+                <a href="<?= base_url('Cluster/');?>email">Info User Cluster</a>
             </li>
             <li>
                 <a href="<?= base_url('Cluster/');?>logOut">Log out</a>

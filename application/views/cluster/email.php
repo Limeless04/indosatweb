@@ -8,7 +8,6 @@
       <th scope="col">Email</th>
       <th scope="col">Cluster</th>
       <th scope="col">Tipe Akun</th>
-      <th scope="col">Aksi</th>
     </tr>
   </thead>
   <tbody>
@@ -27,7 +26,7 @@
       <?php else:?>
         <td><?= "Cluster"?></td>
       <?php endif;?>
-      <td><button type="button" class="badge badge-pill badge-danger" data-toggle="modal" data-target="#emailModal">Hapus</button><br> <a href="<?= base_url("Cluster/");?>editUser/<?= $p['id'];?>" class="badge badge-info">Edit</a></td>
+      <!-- <td><button type="button" class="badge badge-pill badge-danger" data-toggle="modal" data-target="#emailModal">Hapus</button><br> <a href="<?= base_url("Cluster/");?>editUser/<?= $p['id'];?>" class="badge badge-info">Edit</a></td> -->
     </tr>
     <?php endforeach;?>
   <?php endif;?>

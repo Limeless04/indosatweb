@@ -180,7 +180,7 @@ class Cluster extends CI_Controller {
         $sub_array[] = $row->status;
         $newDate = date("d-m-y H:i:s",strtotime($row->dibuat));
         $sub_array[] = $newDate;
-        $sub_array[] = '<button class="badge badge-pill badge-info"><a style="text-decoration:none;color:white;" href="'.base_url('Cluster/editStatus/'.$row->id).'">edit Status</a></button><br><button class="badge badge-pill badge-info"><a style="text-decoration:none;color:white;" href="'.base_url('Cluster/editData/'.$row->id).'">edit Data</a></button>';
+        $sub_array[] = '<button class="badge badge-pill badge-info"><a style="text-decoration:none;color:white;" href="'.base_url('Cluster/editStatus/'.$row->id).'">edit Status</a></button>';
         
         $data[] = $sub_array;
     }

@@ -2,6 +2,8 @@
 class Beli_model extends CI_model{
 
 public function pesananBaru(){
+    $this->load->helper('string');
+
     date_default_timezone_set("Asia/Jakarta");
     $data = $this->session->userdata('input1');
     $data=[
@@ -13,7 +15,8 @@ public function pesananBaru(){
      'cluster' => $data["depo"],
      'msisdn' => $data["msisdn"],
      'status' => "progress",
-     'dibuat' => date("d-m-y H:i")
+     'dibuat' => date("d-m-y H:i"),
+     'kode_gan' => random_string('alnum',5)
  ];
  $this->db->insert("tb_pmasuk",$data);
 }

@@ -54,7 +54,7 @@ class Region extends CI_Controller {
         $data['judul'] ="Region";
         $data['heading'] = 'Data Akun Region';
         $user = $this->db->get_where('tb_user',['email' => $this->session->userdata('email')]) ->row_array();
-        $data['userRegion'] = $this->Region_model->getDataByPropinsi($user);
+        $data['userRegion'] = $this->Region_model->getDataByPropinsi();
         $this->load->view("templates/aheader",$data);
         $this->load->view("templates/asidebar");
         $this->load->view("region/pic",$data);
@@ -86,7 +86,7 @@ class Region extends CI_Controller {
 
         $i = 2;
         foreach($data as $d){
-            $spreadsheet->setActiveSheetIndex(0)->setCellValue('A'.$i,$d['nama_pelanggan'])->setCellValue('B'.$i,$d['no_wa'])->setCellValue('C'.$i,$d['email'])->setCellValue('D'.$i,$d['alamat_rumah'])->setCellValue('E'.$i,$d['produk'])->setCellValue('F'.$i,$d['cluster'])->setCellValue('G'.$i,$d['msisdn'])->setCellValue('H'.$i,$d['status'])->setCellValue('I'.$i,$d['ket'])->setCellValue('J'.$i,$d['dibuat']);
+            $spreadsheet->setActiveSheetIndex(0)->setCellValue('A'.$i,$d['nama_pelanggan'])->setCellValue('B'.$i,$d['no_wa'])->setCellValue('C'.$i,$d['email'])->setCellValue('D'.$i,$d['alamat_rumah'])->setCellValue('E'.$i,$d['produk'])->setCellValue('F'.$i,$d['cluster'])->setCellValue('G'.$i,$d['msisdn'])->setCellValue('H'.$i,$d['status'])->setCellValue('I'.$i,$d['ket'])->setCellValue('J'.$i,$d['dibuat'])->setCellValue('K'.$i,$d['dikonfirm'])->setCellValue('L'.$i,$d['kode_gan'])->setCellValue('G'.$i,$d['hadiah']);
             $i++;
         }
 
@@ -115,10 +115,13 @@ class Region extends CI_Controller {
         $sheet->setCellValue('H1','Status');
         $sheet->setCellValue('I1','Keterangan');
         $sheet->setCellValue('J1','dibuat');
+        $sheet->setCellValue('K1','dibuat');
+        $sheet->setCellValue('L1','dibuat');
+        $sheet->setCellValue('M1','dibuat');
 
         $i = 2;
         foreach($data as $d){
-            $spreadsheet->setActiveSheetIndex(0)->setCellValue('A'.$i,$d['nama_pelanggan'])->setCellValue('B'.$i,$d['no_wa'])->setCellValue('C'.$i,$d['email'])->setCellValue('D'.$i,$d['alamat_rumah'])->setCellValue('E'.$i,$d['produk'])->setCellValue('F'.$i,$d['cluster'])->setCellValue('G'.$i,$d['msisdn'])->setCellValue('H'.$i,$d['status'])->setCellValue('I'.$i,$d['ket'])->setCellValue('J'.$i,$d['dibuat']);
+            $spreadsheet->setActiveSheetIndex(0)->setCellValue('A'.$i,$d['nama_pelanggan'])->setCellValue('B'.$i,$d['no_wa'])->setCellValue('C'.$i,$d['email'])->setCellValue('D'.$i,$d['alamat_rumah'])->setCellValue('E'.$i,$d['produk'])->setCellValue('F'.$i,$d['cluster'])->setCellValue('G'.$i,$d['msisdn'])->setCellValue('H'.$i,$d['status'])->setCellValue('I'.$i,$d['ket'])->setCellValue('J'.$i,$d['dibuat'])->setCellValue('K'.$i,$d['dikonfirm'])->setCellValue('L'.$i,$d['kode_gan'])->setCellValue('G'.$i,$d['hadiah']);
             $i++;
         }
         $writer = new Xlsx($spreadsheet);

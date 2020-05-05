@@ -54,11 +54,11 @@ class Beli extends CI_Controller {
             $this->load->view('beli/index2',$data);
         }else{
             $data = $this->session->userdata('input1');
-            $this->sendEmailToPelanggan();
-            $to_email = $this->Beli_model->getEmail();
-            foreach($to_email as $e){
-                $this->sendEmailToPic($e);
-            }
+            // $this->sendEmailToPelanggan();
+            // $to_email = $this->Beli_model->getEmail();
+            // foreach($to_email as $e){
+            //     $this->sendEmailToPic($e);
+            // }
             $this->Beli_model->pesananBaru();
             $this->Beli_model->hapusMsisdn($data['msisdn']);
             redirect('Beli/sukses');
@@ -140,7 +140,7 @@ class Beli extends CI_Controller {
         $date = date('d-m-Y');
         $time  = date('H:i:s'); 
         $htmlContent = "<p>Pada tanggal, ". $date. " Jam ". $time . " telah masuk Order baru dengan data sebagai berikut : </p>
-        <p>Produk:".$data['produk']."</p>\r\n<p>Msisdn: ".$produk['cluster']."</p>\r\n<p>Data Pelanggan: </p>\r\n<p>Nama: ".$nama."</p>\r\n<p>Alamat: ".$alamat."</p>\r\n<p>Nomor wa: ".$no_wa."</p>\r\n<p>Email: ".$email."</p><a href='http://localhost/indosat/Cluster/konfirmasi'>Konfirmasi</a>";
+        <p>Produk:".$data['produk']."</p>\r\n<p>Msisdn: ".$data['msisdn']."</p>\r\n<p>Data Pelanggan: </p>\r\n<p>Nama: ".$nama."</p>\r\n<p>Alamat: ".$alamat."</p>\r\n<p>Nomor wa: ".$no_wa."</p>\r\n<p>Email: ".$email."</p><a href='http://localhost/indosat/Cluster/konfirmasi'>Konfirmasi</a>";
         //Load email library
         $this->email->from($from_email, 'Orderan Baru');
         $this->email->to($e);

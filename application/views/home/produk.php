@@ -29,18 +29,11 @@
     </div>
     <div class="form-group row">
         <label for="inputEmail3" class="col-sm-2 col-form-label">Gambar</label>
-        <div class="col-sm-10">
-            <select class="form-control" id="gambar_produk" name="gambar_produk">
-                <option value="">Gambar produk</option>
-            </select>
+        <div class="col-sm" id="gambar_produk" name="produk">
         </div>
     </div>
     <div class="form-group row">
         <label for="inputEmail3" class="col-sm-2 col-form-label">Video</label>
-        <div class="col-sm-10">
-            <select class="form-control" id="video_produk" name="video_produk">
-                <option value="">Video </option>
-            </select>
-        </div>
+        <div class="col-sm-10" id="video_produk" name="produk">
     </div>
 </form>

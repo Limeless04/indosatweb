@@ -63,7 +63,6 @@ class Home extends CI_Controller {
 		$this->load->view('home/contact');
 		$this->load->view('templates/footer');
 	}
-
 	function get_produk(){
 		$nama= $this->input->post('nama_produk');
 		$produk = $this->Home_model->getProduk($nama);       

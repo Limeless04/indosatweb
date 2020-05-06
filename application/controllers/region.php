@@ -217,29 +217,56 @@ class Region extends CI_Controller {
         //Send mail
         if(!$this->email->send()){
             show_error($this->email->print_debugger());
-          }
-     }
-
-     public function createProduk(){
+        }
+    }
+    
+    public function createProduk(){
         $data['judul'] ="Region";
         $this->form_validation->set_rules('nama_produk','Nama Produk','required');
         $this->form_validation->set_rules('harga','Harga','required');
         $this->form_validation->set_rules('desc_produk','Deskripsi','required');
+        $this->form_validation->set_rules('url_video','Url Video','required');
         if($this->form_validation->run() == FALSE){
             $this->load->view("templates/aheader",$data);
             $this->load->view("templates/asidebar");
             $this->load->view("region/createProduk");
             $this->load->view("templates/afooter");
-     }else{
-         // $data=$this->input->post();
-         // var_dump($data);die;
-         $this->Region_model->tambahProdukBaru();
-         $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">
-         Berhasil ditambahkan
-         </div>');
-         redirect('region/produk');
-     }
+        }else{
+            // $data=$this->input->post();
+            // var_dump($data);die;
+        $this->do_upload_img();
+        $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">
+        Berhasil ditambahkan
+        </div>');
+        redirect('region/produk');
     }
+}
+
+public function do_upload_img()
+{
+    $config['upload_path']          = './assets/img/produk/';
+    $config['allowed_types']        = 'gif|jpg|png';
+    $config['max_size']             = 10024;
+    $config['max_width']            = 6000;
+    $config['max_height']           = 6000;
+    $this->upload->initialize($config);
+    if ($this->upload->do_upload('userfile'))
+    {
+    $data = array('upload_data' => $this->upload->data());
+    $this->Region_model->tambahProdukBaru($data);
+        redirect('Region/produk');
+    }
+     else
+     {
+      $error = array('error' => $this->upload->display_errors());
+      $this->load->view("templates/aheader");
+      $this->load->view("templates/asidebar");
+      $this->load->view("region/createProduk",$error);
+      $this->load->view("templates/afooter");
+
+      }
+    }
+
     public function hapusProduk($id){
         $this->Region_model->hapusProduk($id);
         $this->session->set_flashdata('notif','<div class="alert alert-success" role="alert">
@@ -280,6 +307,45 @@ class Region extends CI_Controller {
         </div>');
         redirect('Region/pic');
     }
+
+    public function hadiah(){
+        $data['judul'] = 'Region';
+        $data['hadiah'] = $this->Region_model->getAllHadiah();
+        $this->load->view('templates/aheader',$data);
+        $this->load->view('templates/asidebar');
+        $this->load->view('region/hadiah',$data);
+        $this->load->view('templates/afooter');
+    }
+
+    public function hapusHadiah($id){
+        $this->Region_model->hapusDataHadiah($id);
+        $this->session->set_flashdata('notif','<div class="alert alert-success" role="alert">
+        Berhasil dihapus
+        </div>');
+        redirect('Region/hadiah');
+    }
+
+    public function tambahHadiah(){
+        if(!$this->session->userdata('email')){
+            redirect('Auth');
+        }
+        $this->form_validation->set_rules('nama_hadiah','Nama Hadiah','required|trim');
+        $this->form_validation->set_rules('kuota','Kuota','required');
+        if($this->form_validation->run()==FALSE){
+        $data['judul']='Tambah hadiah';
+        $this->load->view('templates/aheader',$data);
+        $this->load->view('templates/asidebar',$data);
+        $this->load->view('region/tambahHadiah');
+        $this->load->view('templates/afooter');
+        }else{
+        $this->Region_model->tambahDataHadiah();
+        $this->session->set_flashdata('notif','<div class="alert alert-success" role="alert">
+        Hadiah bari Berhasil ditambahkan!
+        </div>');
+        redirect('Region/hadiah');
+        }
+    }
+
     public function logOut(){
         $this->session->sess_destroy();
         $this->session->set_flashdata('logOut','<div class="alert alert-danger" role="alert">

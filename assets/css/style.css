@@ -71,6 +71,24 @@ body .container .land_ul li .btn_claim{
     left: 20%;
     top: 85%;
 }
+
+body .container .btn_claim_2{
+    background-image: linear-gradient(rgba(255,0,0,1),rgba(128,0,0,1));
+    box-shadow: -2px -5px black;
+    color: white;
+    padding: 10px 40px 10px 40px;
+    border-radius: 50px;
+    font-size: 15pt;
+    letter-spacing:2px ;
+    font-weight: bold;
+    text-decoration: none;
+}
+body .container .land_ul .land_li .btn_claim_2{
+    margin:0;
+    position:absolute;
+    top:85%;
+    left: 43%;
+}
 body .container .land_ul .land_li:not(:last-child){  
     margin-bottom: 30px;
     margin-top: 30px;
@@ -117,9 +135,26 @@ body .container .btn_beli,body .container .btn_claim{
         width: 200%;
         height: 100%;
     }
+    body .container .land_ul .land_li .btn_claim_2{
+        margin:0;
+        position:absolute;
+        top:85%;
+        left: 43%;
+    }
     .navbar-nav .nav-item a{
         font-size: 10pt;
         font-weight: bolder;
+    }
+    #btn_submit_2{
+        background-image: linear-gradient(rgba(255,0,0,1),rgba(128,0,0,1));
+        box-shadow: -2px -5px black;
+        color: white;
+        padding: 10px 40px 10px 40px;
+        border-radius: 50px;
+        font-size: 15pt;
+        letter-spacing:2px ;
+        font-weight: bold;
+        text-decoration: none;
     }
 }
 
@@ -148,6 +183,18 @@ body .container .btn_beli,body .container .btn_claim{
     text-decoration: none;
     float: right;
 }
+#btn_submit_2{
+    background-image: linear-gradient(rgba(255,0,0,1),rgba(128,0,0,1));
+    box-shadow: -2px -5px black;
+    color: white;
+    padding: 10px 40px 10px 40px;
+    border-radius: 50px;
+    font-size: 15pt;
+    letter-spacing:2px ;
+    font-weight: bold;
+    text-decoration: none;
+}
+
 
 .container .card-login{
 position: fixed;

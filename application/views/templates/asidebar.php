@@ -21,6 +21,9 @@
                 <a href="<?= base_url('region/');?>produk">Create/Update Produk</a>
             </li>   
             <li>
+                <a href="<?= base_url('region/');?>hadiah">Kuota Hadiah</a>
+            </li>   
+            <li>
                 <a href="<?= base_url('region/');?>logOut">Log out</a>
             </li>
         </ul>

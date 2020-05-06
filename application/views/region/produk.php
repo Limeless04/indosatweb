@@ -1,4 +1,4 @@
-<h1><?php echo $heading; ?></h1>
+<!-- <h1><?php echo $heading; ?></h1> -->
 <button class="btn_produk"><a href="<?= base_url('region/');?>createProduk">Tambah Produk</a></button>
 <table class="table">
   <thead id="thead">

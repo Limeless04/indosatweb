@@ -124,11 +124,13 @@ function get_all_data(){
         return $query->result_array();
     }
 
-    public function tambahProdukBaru(){
+    public function tambahProdukBaru($data){
         $data=[
             'nama_produk' => $this->input->post('nama_produk',true),
             'harga' => $this->input->post('harga',true),
             'deskripsi' => $this->input->post('desc_produk',true),
+            'gambar' => $this->upload->data('file_name'),
+            'url_video' =>$this->input->post('url_video')
         ];   
         $this->db->insert("tb_produk",$data);
     }
@@ -137,6 +139,24 @@ function get_all_data(){
         $this->db->order_by('dibuat','asc');
         $query= $this->db->get('tb_produk');
         return $query->result_array();
+    }
+    public function getAllHadiah(){
+        return $this->db->get('tb_hadiah')->result_array();
+    }
+    public function hapusDataHadiah($id){
+        $this->db->where('id',$id);
+        $this->db->delete('tb_hadiah');
+    }
+    public function tambahDataHadiah(){
+        $data=[
+            'nama_hadiah' => $this->input->post('nama_hadiah',true),
+            'kuota' => $this->input->post('kuota',true),
+        ];   
+        $this->db->insert("tb_hadiah",$data);
+    }
+
+    function updateKuotaHadiah(){
+        
     }
 
     Public function editProduk($id){

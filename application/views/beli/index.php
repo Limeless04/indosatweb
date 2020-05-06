@@ -1,6 +1,6 @@
 
 <div class="container">
-    <h3 class="header_beli">Data Customer</h3>
+    <h3 class="header_beli">Pilih Produk</h3>
     <form action="" method="post">
     <div class="form-group row">
         <label for="inputEmail3" class="col-sm-2 col-form-label">Depo Terdekat</label>
@@ -36,4 +36,5 @@
         </div>
     </div>
     <button type="submit" class="btn" id="btn_submit">Submit</button>
+    <button type="submit" class="btn" id="btn_submit"><a href="<?= base_url('Home/index')?>" style="text-decoration:none;color:white;">Cancel</a></button>
     </form>

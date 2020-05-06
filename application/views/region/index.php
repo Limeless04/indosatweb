@@ -39,6 +39,28 @@
   <div class="col-sm-6">
     <div class="card">
       <div class="card-body">
+        <h5 class="card-title">Visitors Today</h5>
+        <p class="card-text"><?=$visitortoday?></p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Total Visitor</h5>
+        <p class="card-text"><?= $totalvisitor?></p>
+      </div>
+    </div>
+  </div>  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Visitor Online</h5>
+        <p class="card-text"><?= $onlinevisitor?></p>
+      </div>
+    </div>
+  </div>  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
         <h5 class="card-title">Log Out</h5>
         <p class="card-text">Keluar dari session</p>
         <a href="<?= base_url("Region/logOut");?>" class="btn btn-warning">Logout</a>

@@ -6,10 +6,10 @@
         <div class="col-sm-10">
         <select name="status" id="nama_produk" class="form-control" >
         <option value="">Pilih Status</option>
-        <option value="suksess">Suksess</option>
+        <option value="sukses">Sukses</option>
         <option value="progress">Progress</option>
         <option value="reject">Reject</option>
-        </select>
+        </select>   
         </div>
     </div>
     <div class="form-group row">
@@ -22,5 +22,6 @@
     <input type="hidden" name="msisdn" value="<?= $edit["msisdn"];?>">
     <input type="hidden" name="cluster" value="<?= $edit["cluster"];?>">
     <button type="submit" class="btn" id="btn_submit">Submit</button>
+    <button type="submit" class="btn" id="btn_submit"><a href="<?= base_url('Cluster/reportOrder');?>" style="text-decoration:none;color:white;">Cancel</a></button>
     </form>
 </div> 

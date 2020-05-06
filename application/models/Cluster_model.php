@@ -3,7 +3,7 @@
 class Cluster_model extends CI_model{
     var $table = "tb_pmasuk";
     var $select_order = ['nama_pelanggan','no_wa','alamat_rumah','produk','msisdn','cluster','status','MONTH(NOW())','MONTH(dibuat)'];
-    var $select_column = ['nama_pelanggan','no_wa','cluster','dibuat','msisdn','alamat_rumah','id','produk','status'];
+    var $select_column = ['nama_pelanggan','no_wa','cluster','dibuat','msisdn','alamat_rumah','id','produk','status','dikonfirm','hadiah'];
 public function countMsisdn(){
         $count = $this->db->count_all('tb_msisdn');
         if($count<10){
@@ -17,6 +17,7 @@ public function countMsisdn(){
        $user= $this->db->get_where('tb_user',['email' => $this->session->userdata('email')]) ->row_array();
        $this->db->select($this->select_column);
        $this->db->where("cluster",$user['cluster']);
+       $this->db->where("status = 'sukses'");
        $this->db->from($this->table);
        if(@$_POST["search"]["value"]){
            $this->db->like("nama_pelanggan",@$_POST["search"]["value"]);
@@ -54,7 +55,6 @@ function get_all_data(){
    $this->db->from($this->table);
    return $this->db->count_all_results();
 }
-
     public function getDataByPropinsi($user){
         $this->db->select('*');
         $this->db->where('propinsi',$user['propinsi']);
@@ -139,10 +139,8 @@ function get_all_data(){
     function make_query_progress(){
         $user= $this->db->get_where('tb_user',['email' => $this->session->userdata('email')]) ->row_array();
         $this->db->select($this->select_column);
-        $this->db->where("'dibuat' <= 'DATEADD(day,5,dibuat'");
         $this->db->where("cluster",$user['cluster']);
-        $this->db->like("status","progress");
-        $this->db->group_by("tb_pmasuk.cluster");
+        $this->db->where("status","progress");
         $this->db->from($this->table);
         if(@$_POST["search"]["value"]){
             $this->db->like("nama_pelanggan",@$_POST["search"]["value"]);
@@ -156,6 +154,30 @@ function get_all_data(){
 
     function make_datatables_progress(){
         $this->make_query_progress();
+        if(@$_POST["length"]!=-1)
+        {
+            $this->db->limit(@$_POST["length"],@$_POST["start"]);
+        }
+        $query = $this->db->get();
+        return $query->result();
+    }
+    function make_query_reject(){
+        $user= $this->db->get_where('tb_user',['email' => $this->session->userdata('email')]) ->row_array();
+        $this->db->select($this->select_column);
+        $this->db->where("cluster",$user['cluster']);
+        $this->db->where("status","reject");
+        $this->db->from($this->table);
+        if(@$_POST["search"]["value"]){
+            $this->db->like("nama_pelanggan",@$_POST["search"]["value"]);
+        }
+        if(@$_POST["order"]){
+            $this->db->order_by($this->select_order[@$_POST['order']['0']['column']],@$_POST['order']['0']['dir']);
+        }else{
+            $this->db->order_by("id","DESC");
+        }
+    }
+    function make_datatables_reject(){
+        $this->make_query_reject();
         if(@$_POST["length"]!=-1)
         {
             $this->db->limit(@$_POST["length"],@$_POST["start"]);

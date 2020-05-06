@@ -7,29 +7,6 @@
 <script src="<?= base_url('assets/');?>js/popper.min.js">   </script>
 <script src="<?= base_url('assets/');?>js/bootstrap.js">   </script>
 <script src="<?= base_url('assets/');?>js/sidebar.js">   </script>
-<!-- <script type="text/javascript">
-$(document).ready(function(){
-    $('#depo').change(function(){ 
-        $.ajax({
-            type : "POST",
-            url : "<?= base_url('Beli/');?>get_msisdn",
-            data : {cluster: $('#depo').val()},
-            asycn: true,
-            dataType : 'json',
-            success: function(data){
-                            let html = '';
-                            let i;
-                            for(i=0; i<data.length; i++){
-                                html += '<option value='+data[i].msisdn+'>'+data[i].msisdn+'</option>';
-                            }
-                            $('#msisdn').html(html);
-            },
-        });
-        return false;
-    }); 
-
-});
-</script> -->
 <script type="text/javascript">
 $(document).ready(function(){
     $('#depo').change(function(){
@@ -43,6 +20,31 @@ $(document).ready(function(){
                 $('#msisdn').find('option').not(':first').remove();
                 $.each(response, function(index,data){
                     $('#msisdn').append('<option value="'+data['msisdn']+'">'+data['msisdn']+'</option>');
+                });
+            }
+        });
+    });
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#nama_produk').change(function(){
+        var nama_produk = $(this).val();
+        $.ajax({
+            url:'<?php echo base_url("Home/get_produk");?>',
+            method:'POST',
+            data:{nama_produk:nama_produk},
+            dataType:'json',
+            success:function(response){
+                $('#harga_produk').find('option').remove();
+                $('#produk_desc').find('option').remove();
+                $('#gambar_produk').find('option').remove();
+                $('#video_produk').find('option').remove();
+                $.each(response, function(index,data){
+                    $('#harga_produk').append('<option value="'+data['harga']+'">'+data['harga']+'</option>');
+                    $('#produk_desc').val(data['deskripsi']);
+                    $('#gambar_produk').append('<img src="./assets/img/produk/"'+data['gambar']+'height="64px" width="64px">');
+                    $('#harga_produk').append('<video src="'+data['url_video']+'" width="320" heigth="320"  controls></video>');
                 });
             }
         });

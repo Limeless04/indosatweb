@@ -25,7 +25,7 @@
       <td><?= $p["propinsi"];?></td>
       <td><?= $p["cluster"];?></td>
       <td><?= $p["id_role"];?></td>
-      <td><a href="<?= base_url("Region/");?>hapusUserRegion/<?= $p['id'];?>" class="badge badge-danger">Hapus</a> <br> <a href="<?= base_url("Region/");?>editUserRegion/<?= $p['id'];?>" class="badge badge-info">Edit</a></td>
+      <td><a href="<?= base_url("Region/");?>hapusUserRegion/<?= $p['id'];?>" class="badge badge-danger">Hapus</a>
     </tr>
     <?php endforeach;?>
   <?php endif;?>

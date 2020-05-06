@@ -23,11 +23,26 @@ class Region extends CI_Controller {
 
     public function index(){
         $data['judul'] ="Region";
-    $data['heading'] = "Dashboard";
-    $this->load->view("templates/aheader",$data);
-    $this->load->view("templates/asidebar");
-    $this->load->view("region/index",$data);
-    $this->load->view("templates/afooter");
+        $data['heading'] = "Dashboard";
+        $date  = date("Y-m-d"); // Mendapatkan tanggal sekarang
+        $waktu = time(); //
+        $timeinsert = date("Y-m-d H:i:s");
+        $dbpengunjung = $this->db->query("SELECT COUNT(hits) as hits FROM tb_visitor")->row(); 
+        
+        $pengunjunghariini  = $this->db->query("SELECT * FROM tb_visitor WHERE date='".$date."' GROUP BY ip")->num_rows(); // Hitung jumlah pengunjung
+        $totalpengunjung = isset($dbpengunjung->hits)?($dbpengunjung->hits):0; // hitung total pengunjung
+        
+        $bataswaktu = time() - 300;
+        
+        $pengunjungonline  = $this->db->query("SELECT * FROM tb_visitor WHERE online > '".$bataswaktu."'")->num_rows(); // hitung pengunjung online
+        
+        $data['visitortoday']=$pengunjunghariini;
+        $data['totalvisitor']=$totalpengunjung;
+        $data['onlinevisitor']=$pengunjungonline;
+        $this->load->view("templates/aheader",$data);
+        $this->load->view("templates/asidebar");
+        $this->load->view("region/index",$data);
+        $this->load->view("templates/afooter");
     }
 
     public function report(){
@@ -83,10 +98,13 @@ class Region extends CI_Controller {
         $sheet->setCellValue('H1','Status');
         $sheet->setCellValue('I1','Keterangan');
         $sheet->setCellValue('J1','dibuat');
+        $sheet->setCellValue('K1','Dikonfirm');
+        $sheet->setCellValue('L1','kode_gan');
+        $sheet->setCellValue('M1','hadiah');
 
         $i = 2;
         foreach($data as $d){
-            $spreadsheet->setActiveSheetIndex(0)->setCellValue('A'.$i,$d['nama_pelanggan'])->setCellValue('B'.$i,$d['no_wa'])->setCellValue('C'.$i,$d['email'])->setCellValue('D'.$i,$d['alamat_rumah'])->setCellValue('E'.$i,$d['produk'])->setCellValue('F'.$i,$d['cluster'])->setCellValue('G'.$i,$d['msisdn'])->setCellValue('H'.$i,$d['status'])->setCellValue('I'.$i,$d['ket'])->setCellValue('J'.$i,$d['dibuat'])->setCellValue('K'.$i,$d['dikonfirm'])->setCellValue('L'.$i,$d['kode_gan'])->setCellValue('G'.$i,$d['hadiah']);
+            $spreadsheet->setActiveSheetIndex(0)->setCellValue('A'.$i,$d['nama_pelanggan'])->setCellValue('B'.$i,$d['no_wa'])->setCellValue('C'.$i,$d['email'])->setCellValue('D'.$i,$d['alamat_rumah'])->setCellValue('E'.$i,$d['produk'])->setCellValue('F'.$i,$d['cluster'])->setCellValue('G'.$i,$d['msisdn'])->setCellValue('H'.$i,$d['status'])->setCellValue('I'.$i,$d['ket'])->setCellValue('J'.$i,$d['dibuat'])->setCellValue('K'.$i,$d['dikonfirm'])->setCellValue('L'.$i,$d['kode_gan'])->setCellValue('M'.$i,$d['hadiah']);
             $i++;
         }
 
@@ -115,13 +133,13 @@ class Region extends CI_Controller {
         $sheet->setCellValue('H1','Status');
         $sheet->setCellValue('I1','Keterangan');
         $sheet->setCellValue('J1','dibuat');
-        $sheet->setCellValue('K1','dibuat');
-        $sheet->setCellValue('L1','dibuat');
-        $sheet->setCellValue('M1','dibuat');
+        $sheet->setCellValue('K1','Dikonfirm');
+        $sheet->setCellValue('L1','kode_gan');
+        $sheet->setCellValue('M1','hadiah');
 
         $i = 2;
         foreach($data as $d){
-            $spreadsheet->setActiveSheetIndex(0)->setCellValue('A'.$i,$d['nama_pelanggan'])->setCellValue('B'.$i,$d['no_wa'])->setCellValue('C'.$i,$d['email'])->setCellValue('D'.$i,$d['alamat_rumah'])->setCellValue('E'.$i,$d['produk'])->setCellValue('F'.$i,$d['cluster'])->setCellValue('G'.$i,$d['msisdn'])->setCellValue('H'.$i,$d['status'])->setCellValue('I'.$i,$d['ket'])->setCellValue('J'.$i,$d['dibuat'])->setCellValue('K'.$i,$d['dikonfirm'])->setCellValue('L'.$i,$d['kode_gan'])->setCellValue('G'.$i,$d['hadiah']);
+            $spreadsheet->setActiveSheetIndex(0)->setCellValue('A'.$i,$d['nama_pelanggan'])->setCellValue('B'.$i,$d['no_wa'])->setCellValue('C'.$i,$d['email'])->setCellValue('D'.$i,$d['alamat_rumah'])->setCellValue('E'.$i,$d['produk'])->setCellValue('F'.$i,$d['cluster'])->setCellValue('G'.$i,$d['msisdn'])->setCellValue('H'.$i,$d['status'])->setCellValue('I'.$i,$d['ket'])->setCellValue('J'.$i,$d['dibuat'])->setCellValue('K'.$i,$d['dikonfirm'])->setCellValue('L'.$i,$d['kode_gan'])->setCellValue('M'.$i,$d['hadiah']);
             $i++;
         }
         $writer = new Xlsx($spreadsheet);
@@ -168,8 +186,8 @@ class Region extends CI_Controller {
             'smtp_host' => 'smtp.gmail.com',
             'smtp_port' => 465,
             'smtp_crypto'  =>'ssl',
-            'smtp_user' => 'examplemai04l@gmail.com', // change it to yours
-            'smtp_pass' => 'Xlim2504', // change it to yours
+            'smtp_user' => 'belim3ooredo@gmail.com', // change it to yours
+            'smtp_pass' => 'Belim3now', // change it to yours
             'mailtype' => 'html',
             'smtp_timeout' =>'10',
             'charset' => 'iso-8859-1',
@@ -178,7 +196,7 @@ class Region extends CI_Controller {
             'validation' => TRUE
             ); 
         $this->email->initialize($config);
-        $from_email = "examplemai04l@gmail.com";//email default
+        $from_email = "belim3ooredo@gmail.com";//email default
         $nama = $this->input->post('nama_pelanggan',true);
         $no_wa = $this->input->post('nomor_wa',true);
         $email = $this->input->post('email',true);
@@ -230,28 +248,6 @@ class Region extends CI_Controller {
         redirect('region/produk');
     }
 
-    public function editProduk($id){
-        $data['judul'] ="Region";
-        $data['produk'] = $this->db->get_where('tb_produk',['id' => $id]) ->row_array();
-        $this->form_validation->set_rules('nama_produk','Nama Produk','required');
-        $this->form_validation->set_rules('harga','Harga','required');
-        $this->form_validation->set_rules('desc_produk','Deskripsi','required');
-        if($this->form_validation->run() == FALSE){
-            $this->load->view("templates/aheader",$data);
-            $this->load->view("templates/asidebar");
-            $this->load->view("region/editProduk",$data);
-            $this->load->view("templates/afooter");
-        }else{
-            // $data=$this->input->post();
-            // var_dump($data);die;
-            $this->Region_model->editProduk($id);
-            $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">
-            Berhasil ditambahkan
-            </div>');
-            redirect('region/produk');
-        }
-    }
-
 
     public function tambahUser(){
         $data['judul'] ="Region";
@@ -277,35 +273,6 @@ class Region extends CI_Controller {
         redirect('Region/pic');
         }
     }
-    public function editUserRegion($id){
-        $data['judul'] ="Region";
-        $data['user'] = $this->db->get_where('tb_user',['id' => $id]) ->row_array();
-        $this->form_validation->set_rules('nama','Nama','required|trim');
-        $this->form_validation->set_rules('email','Email','required|trim|valid_email|is_unique[tb_user.email]');
-        $this->form_validation->set_rules('password','Password','required|trim|min_length[8]|matches[password2]',[
-        'matches' => 'Password dont match!',
-        'min_length' => 'Password too short!'
-        ]);
-        $this->form_validation->set_rules('password2','Password','required|trim|matches[password]',[
-        'matches' => 'Password dont match!',
-        'min_length' => 'Password too short!'
-        ]);
-        if($this->form_validation->run() == FALSE){
-            $this->load->view("templates/aheader",$data);
-            $this->load->view("templates/asidebar");
-            $this->load->view("region/editUser",$data);
-            $this->load->view("templates/afooter");
-        }else{
-            // $data=$this->input->post();
-            // var_dump($data);die;
-            $this->Region_model->editUserRegion($id);
-            $this->session->set_flashdata('notif','<div class="alert alert-success" role="alert">
-            Berhasil ditambahkan! Untuk Melihat Perubahan Silahkan Login Ulang.
-            </div>');
-            redirect('region/pic');
-        }
-    }
-
     public function hapusUserRegion($id){
         $this->Region_model->hapusUserRegion($id);
         $this->session->set_flashdata('notif','<div class="alert alert-success" role="alert">
@@ -314,11 +281,10 @@ class Region extends CI_Controller {
         redirect('Region/pic');
     }
     public function logOut(){
-        $this->session->unset_userdata('email');
-        $this->session->unset_userdata('id_role');
+        $this->session->sess_destroy();
         $this->session->set_flashdata('logOut','<div class="alert alert-danger" role="alert">
         Anda berhasil keluar!</div>');
-        redirect('Home');
+        redirect('Auth');
     }
 
     function get_cluster(){
@@ -365,7 +331,6 @@ class Region extends CI_Controller {
     );
     echo json_encode($output);
     }
-
 
 }
 

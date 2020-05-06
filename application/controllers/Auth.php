@@ -32,6 +32,7 @@ class Auth extends CI_Controller {
             if($user['id_role']==1){
                 if(password_verify($password,$user['password'])){
                     $data = [
+                        'nama'=>$user['nama'],
                         'email' => $user['email'],
                         'id_role' => $user['id_role'],
                         'propinsi'=> $user['propinsi'],
@@ -52,14 +53,21 @@ class Auth extends CI_Controller {
                 }
             }elseif($user['id_role']==2){
                 if(password_verify($password,$user['password'])){
+                    $this->load->library('user_agent');
                     $data = [
-                        'email' => $user['email'],
-                        'id_role' => $user['id_role'],
-                        'propinsi'=> $user['propinsi'],
-                        'cluster' =>$user['cluster']
+                    'nama'=>$user['nama'],
+                    'email' => $user['email'],
+                    'id_role' => $user['id_role'],
+                    'propinsi'=> $user['propinsi'],
+                    'cluster' =>$user['cluster']
                     ];
                     $this->session->set_userdata($data);
-                    redirect('Cluster');
+                    if ($this->agent->is_referral())
+                    {
+                        redirect($this->agent->referrer()); 
+                    }else{
+                        redirect('Cluster');
+                    }
                 }else{
                     $this->session->set_flashdata('notif','<div class="alert alert-danger" role="alert">
                     Password salah!

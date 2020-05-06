@@ -46,6 +46,18 @@ public function hapusMsisdn($msisdn){
 }
 
 function getEmail(){
-    return $this->db->select('email')->where('id_role=2')->get('tb_user')->result_array();
+    $data = $this->session->userdata('input1');
+    return $this->db->select('email')->where('id_role=2')->where('cluster',$data['depo'])->get('tb_user')->result_array();
+}
+
+function getMsisdnMail(){
+    $data = $this->session->userdata('input1');
+    $mail = [
+        'msisdn' => $data['msisdn']
+    ];
+    $this->db->select('msisdn');
+    $this->db->where($mail);
+    $query = $this->db->get('tb_pmasuk');
+    return $query->result_array();
 }
 }

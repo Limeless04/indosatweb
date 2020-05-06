@@ -121,6 +121,27 @@ $(document).ready(function(){
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
+  var dataTable = $('#reportTable-reject').DataTable({
+        "processing":true,
+        'serverSide':true,
+        "order":[],
+        "searchable":true,
+        "lengthMenu":[[5,10,20,50,-1],[5,10,20,50,"All"]],
+        "ajax":{
+            url:"<?php echo base_url().'Cluster/getReportReject';?>",
+            type:"POST",
+        },
+        "columnDefs":[
+            {
+                "target":[0,3,4],
+                "orderable":true,
+            }
+        ]
+       });
+    });
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
   var dataTable = $('#table-report').DataTable({
         "processing":true,
         'serverSide':true,

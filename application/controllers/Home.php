@@ -34,10 +34,10 @@ class Home extends CI_Controller {
 		$waktu = time();
 		$timeinsert = date("Y-m-d H:i:s");
 
-    $s = $this->db->query("SELECT* FROM tb_visitor where ip='".$ip."'And date='".$date."'")->num_rows();
-    $ss = isset($s)?($s):0;
+	    $s = $this->db->query("SELECT* FROM tb_visitor where ip='".$ip."'And date='".$date."'")->num_rows();
+   		 $ss = isset($s)?($s):0;
 
-    if($ss == 0){
+	    if($ss == 0){
         $this->db->query("INSERT INTO tb_visitor(ip, date, hits, online, time) VALUES('".$ip."','".$date."','1','".$waktu."','".$timeinsert."')");
         }
          

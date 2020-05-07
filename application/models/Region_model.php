@@ -151,6 +151,7 @@ function get_all_data(){
         $data=[
             'nama_hadiah' => $this->input->post('nama_hadiah',true),
             'kuota' => $this->input->post('kuota',true),
+            'full_path' => $this->upload->data('full_path'),
         ];   
         $this->db->insert("tb_hadiah",$data);
     }

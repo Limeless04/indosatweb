@@ -248,6 +248,7 @@ public function do_upload_img()
     $config['allowed_types']        = 'gif|jpg|png';
     $config['max_size']             = 10024;
     $config['max_width']            = 6000;
+    $config['overwrite']            = TRUE;
     $config['max_height']           = 6000;
     $this->upload->initialize($config);
     if ($this->upload->do_upload('userfile'))
@@ -338,12 +339,38 @@ public function do_upload_img()
         $this->load->view('region/tambahHadiah');
         $this->load->view('templates/afooter');
         }else{
-        $this->Region_model->tambahDataHadiah();
+        $this->do_upload_img_hadia();
         $this->session->set_flashdata('notif','<div class="alert alert-success" role="alert">
         Hadiah bari Berhasil ditambahkan!
         </div>');
         redirect('Region/hadiah');
         }
+    }
+
+    public function do_upload_img_hadiah()
+    {
+    $config['upload_path']          = './assets/img/produk/';
+    $config['allowed_types']        = 'gif|jpg|png';
+    $config['max_size']             = 10024;
+    $config['overwrite']            = TRUE;
+    $config['max_width']            = 6000;
+    $config['max_height']           = 6000;
+    $this->upload->initialize($config);
+    if ($this->upload->do_upload('userfile'))
+    {
+    $data = array('upload_data' => $this->upload->data());
+    $this->Region_model->tambahDataHadiah($data);
+        redirect('Region/Hadiah');
+    }
+     else
+     {
+      $error = array('error' => $this->upload->display_errors());
+      $this->load->view("templates/aheader");
+      $this->load->view("templates/asidebar");
+      $this->load->view("region/tambahHadiah",$error);
+      $this->load->view("templates/afooter");
+
+      }
     }
 
     public function logOut(){

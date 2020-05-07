@@ -67,7 +67,9 @@ $(document).ready(function(){
         Swal.fire({
             icon: 'sukses',
             title: 'Selamat!',
-            text: sukses,
+            html: sukses,
+            imageUrl: '<?= base_url('Claim/get_gambar');?>',
+            imageHeight: 400,
             });
     }
 </script>

@@ -31,10 +31,20 @@ class Claim extends CI_Controller {
                 $cekStatusClaim = $this->Claim_model->cekStatusClaim();
                 if(empty($cekStatusClaim)){
                     $hadiah = $this->Claim_model->getRandomHadiah();
-                    $this->Claim_model->updateTbMasuk($hadiah);
-                    $this->Claim_model->updateKuota($hadiah);
-                    $this->session->set_flashdata('sukses','Selamat Anda Mendapatkan');
-                    redirect('Claim');
+                    $this->get_gambar($hadiah);
+                    // var_dump($hadiah);die;
+                    // foreach($hadiah as $h){
+                    //     $this->Claim_model->updateTbMasuk($h);
+                    //     $this->Claim_model->updateKuota($h);
+                    //     $this->session->set_flashdata('sukses','<p>Selamat Anda Mendapatkan</p> <h3>'.$h->nama_hadiah.'</h3><img src="" alt="">');
+                    //     redirect('Claim');
+                    // }
+                    foreach($hadiah as $h){
+                        // $this->Claim_model->updateTbMasuk($h);
+                        // $this->Claim_model->updateKuota($h);
+                        $this->session->set_flashdata('sukses','<p>Selamat Anda Mendapatkan</p> <h3>'.$h->nama_hadiah.'</h3><img src="../assets/img/hadiah/'.$h->gambar.'" width="200px" height="200px">');
+                        redirect('Claim');
+                    }
                 }else{
                     $this->session->set_flashdata('klaim','Maaf, Claim Hadiah hanya dapat dilakukan Sekali!');
                     redirect('Claim');
@@ -43,5 +53,8 @@ class Claim extends CI_Controller {
             }
         }
     } 
-
+    function get_gambar($hadiah){
+        $gambar = $this->Claim_model->getGambar($hadiah);       
+        echo json_encode($gambar);// konversi varibael $callback menjadi JSON
+    }
 }

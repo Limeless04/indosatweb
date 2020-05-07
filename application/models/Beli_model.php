@@ -58,6 +58,6 @@ function getMsisdnMail(){
     $this->db->select('msisdn');
     $this->db->where($mail);
     $query = $this->db->get('tb_pmasuk');
-    return $query->result_array();
+    return $query->row_array();
 }
 }

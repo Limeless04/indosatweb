@@ -59,8 +59,10 @@ class Home extends CI_Controller {
 		$this->load->view('templates/footer');
 	}
 	public function contacts(){
-		$this->load->view('templates/header');
-		$this->load->view('home/contact');
+		$data['judul'] = 'Contacts';
+		$data['alamat'] = $this->Home_model->getContacts();
+		$this->load->view('templates/header',$data);
+		$this->load->view('home/contact',$data);
 		$this->load->view('templates/footer');
 	}
 	function get_produk(){

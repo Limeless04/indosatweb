@@ -10,4 +10,7 @@ class Home_model extends CI_model{
     function getAllProduk(){
         return $this->db->get('tb_produk')->result_array();
     }
+    function getContacts(){
+        return $this->db->get('tb_contacts')->result_array();
+    }
 }

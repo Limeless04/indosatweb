@@ -42,6 +42,7 @@
         <label for="inputEmail3" class="col-sm-2 col-form-label">Url Video</label>
         <div class="col-sm-10">
         <input type="text" class="form-control col" id="url_video" name="url_video" value="<?= set_value('url_video');?>">
+        <div class="alert alert-danger" role="alert">Untuk URL video masukan URL embed(sematkan) dari youtube, ada dimenu bagikan->sematkan(embed)->copy tags dan url yang muncul itu</div>
         </div>
     </div>
     <button type="submit" class="btn" id="btn_submit">Submit</button>

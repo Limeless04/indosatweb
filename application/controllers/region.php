@@ -425,5 +425,32 @@ public function do_upload_img()
     echo json_encode($output);
     }
 
+    function contacts(){
+        $data['judul'] = 'Region';
+        $data['alamat'] = $this->Region_model->getContacts();
+        $this->load->view("templates/aheader",$data);
+        $this->load->view("templates/asidebar");
+        $this->load->view("region/contact",$data);
+        $this->load->view("templates/afooter");
+    }
+    function editContacts($id){
+        $data['judul'] ="Region";
+        $data['alamat'] = $this->Region_model->getContactsById($id);
+        $this->form_validation->set_rules('alamat','Alamat','required');
+        if($this->form_validation->run() == FALSE){
+            $this->load->view("templates/aheader",$data);
+            $this->load->view("templates/asidebar");
+            $this->load->view("region/editContact",$data);
+            $this->load->view("templates/afooter");
+        }else{
+            // $data=$this->input->post();
+            // var_dump($data);die;
+            $this->Region_model->editDataContact($id);
+            $this->session->set_flashdata('pesan','<div class="alert alert-success" role="alert">
+            Berhasil diedit!
+            </div>');
+            redirect('Cluster/email');
+        }
+    }
 }
 

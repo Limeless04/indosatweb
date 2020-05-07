@@ -1,6 +1,7 @@
 <div class="container">
 <div class="flash-data" data-flashdata="<?= $this->session->flashdata('klaim')?>"></div>
 <div class="sukses" data-sukses="<?= $this->session->flashdata('sukses');?>"></div>
+<div class="gambar" data-gambar="<?= base_url('assets/img/hadiah/'.$gambar);?>"></div>
     <img src="<?= base_url('assets/');?>img/claim.png" id="landing_page" alt="">
         <form action="" method="post">
             <div class="form-group row">

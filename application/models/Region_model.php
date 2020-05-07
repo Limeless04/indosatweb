@@ -211,10 +211,11 @@ function get_all_data(){
     }
 
     function getAllReportBulanIni(){
+        date_default_timezone_set("Asia/Jakarta");
         $user= $this->db->get_where('tb_user',['email' => $this->session->userdata('email')]) ->row_array();
         $this->db->select('tb_pmasuk.*,tb_cluster.*');
         $this->db->where('tb_pmasuk.cluster=tb_cluster.cluster');
-        $this->db->where('tb_cluster.propinsi',$user['propinsi']);
+        // $this->db->where('tb_cluster.propinsi',$user['propinsi']);
         $this->db->where('MONTH(dibuat)=MONTH(CURDATE())');
         $this->db->from('tb_pmasuk,tb_cluster');
         return $this->db->get()->result_array();
@@ -223,5 +224,20 @@ function get_all_data(){
     function getAllReport(){
         return $this->db->get("tb_pmasuk")->result_array();
     }
-   
+   function getContacts(){
+       return $this->db->get('tb_contacts')->result_array();
+   }
+   function getContactsById($id){
+    $this->db->where('id',$id);
+    $query = $this->db->get('tb_contacts');
+    return $query->row_array();
+    }
+
+    function editDataContacts($id){
+        $data=[
+            'alamat'=>$this->input->post('alamat')
+        ];
+        $this->db->where('id',$id);
+        $this->db->update('tb_contacts',$data);
+    }
 }

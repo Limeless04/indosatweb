@@ -16,6 +16,7 @@
                 <th>Tgl Dibuat</th>
                 <th>Dikonfirmasi</th>
                 <th>Hadiah</th>
+                <th>Kode Hadiah</th>
                 <th>Aksi</th>
                 </tr>
             </thead>
@@ -35,6 +36,7 @@
                 <th>Tgl Dibuat</th>
                 <th>Dikonfirmasi</th>
                 <th>Hadiah</th>
+                <th>Kode Hadiah</th>
                 <th>Aksi</th>
                 </tr>
             </thead>
@@ -54,6 +56,7 @@
                 <th>Tgl Dibuat</th>
                 <th>Dikonfirmasi</th>
                 <th>Hadiah</th>
+                <th>Kode Hadiah</th>
                 <th>Aksi</th>
                 </tr>
             </thead>

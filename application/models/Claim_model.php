@@ -11,7 +11,7 @@ class Claim_model extends CI_model{
     }
 
     function getRandomHadiah(){
-        $this->db->select("id,nama_hadiah,full_path");
+        $this->db->select("id,nama_hadiah,gambar");
         $this->db->order_by('rand()');
         $this->db->limit(1);
         $query = $this->db->get('tb_hadiah');
@@ -34,11 +34,11 @@ class Claim_model extends CI_model{
         $this->db->query("UPDATE tb_pmasuk SET hadiah='".$h->nama_hadiah."' WHERE kode_gan='".$kodeHadiah."'");
     }
 
-    function getGambar($hadiah){
-        $data=[
-            'full_path' => $hadiah['full_path'],
-        ];    
-        $this->db->where($data);
-        $query = $this->db->get('tb_hadiah');
-    }
+    // function getGambar($hadiah){
+    //     $data=[
+    //         'gambar' => $hadiah['gambar'],
+    //     ];    
+    //     $this->db->where($data);
+    //     $query = $this->db->get('tb_hadiah');
+    // }
 }

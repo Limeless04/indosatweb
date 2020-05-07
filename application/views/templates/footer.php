@@ -37,14 +37,14 @@ $(document).ready(function(){
             data:{nama_produk:nama_produk},
             dataType:'json',
             success:function(response){
-                $('#harga_produk').find('option').remove();
-                $('#produk_desc').find('option').remove();
-                $('#video_produk').find('option').remove();
+                $('#harga_produk').find('option').not(':first').remove();
+                $('#produk_desc').find('option').not(':first').remove();
+                $('#video_produk').find('option').not(':first').remove();
                 $.each(response, function(index,data){
-                    $('#harga_produk').append('<option value="'+data['harga']+'">'+data['harga']+'</option>');
+                    $('#harga_produk').html('<option value="'+data['harga']+'">'+data['harga']+'</option>');
                     $('#produk_desc').val(data['deskripsi']);
-                    $('#gambar_produk').prepend('<img src="../assets/img/produk/'+data['gambar']+'" height="240px" width="10px">');
-                    $('#video_produk').prepend(data['url_video']);
+                    $('#gambar_produk').html('<img src="../assets/img/produk/'+data['gambar']+'" height="240px" width="10px">');
+                    $('#video_produk').html(data['url_video']);
                 });
             }
         });
@@ -63,13 +63,14 @@ $(document).ready(function(){
 </script>
 <script type="text/javascript">
     const sukses = $('.sukses').data('sukses');
+    const gambar = $('.gambar').data('gambar');
     if(sukses){
         Swal.fire({
             icon: 'sukses',
             title: 'Selamat!',
             html: sukses,
-            imageUrl: '<?= base_url('Claim/get_gambar');?>',
-            imageHeight: 400,
+            imageUrl: gambar,
+            imageHeight: 300,
             });
     }
 </script>

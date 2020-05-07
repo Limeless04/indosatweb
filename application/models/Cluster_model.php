@@ -3,7 +3,7 @@
 class Cluster_model extends CI_model{
     var $table = "tb_pmasuk";
     var $select_order = ['nama_pelanggan','no_wa','alamat_rumah','produk','msisdn','cluster','status','MONTH(NOW())','MONTH(dibuat)'];
-    var $select_column = ['nama_pelanggan','no_wa','cluster','dibuat','msisdn','alamat_rumah','id','produk','status','dikonfirm','hadiah'];
+    var $select_column = ['nama_pelanggan','no_wa','cluster','dibuat','msisdn','alamat_rumah','id','produk','status','dikonfirm','hadiah','kode_gan'];
 public function countMsisdn(){
         $count = $this->db->count_all('tb_msisdn');
         if($count<10){
@@ -27,6 +27,7 @@ public function countMsisdn(){
            $this->db->or_like("MONTH('dibuat')",@$_POST["search"]["value"]);
            $this->db->or_like("alamat_rumah",@$_POST["search"]["value"]);
            $this->db->or_like("status",@$_POST["search"]["value"]);
+           $this->db->or_like("kode_gan",@$_POST["search"]["value"]);
         }
        if(@$_POST["order"]){
            $this->db->order_by($this->select_order[@$_POST['order']['0']['column']],@$_POST['order']['0']['dir']);

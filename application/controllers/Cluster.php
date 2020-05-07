@@ -181,7 +181,8 @@ class Cluster extends CI_Controller {
             $newDate = date("d-M-Y H:i",strtotime($row->dibuat));
             $sub_array[] = $newDate;
             $sub_array[] = $row->dikonfirm;
-            $sub_array[] = $row->hadiah;    
+            $sub_array[] = $row->hadiah;   
+            $sub_array[] = $row->kode_gan;    
             $sub_array[] = '<button class="badge badge-pill badge-info"><a style="text-decoration:none;color:white;" href="'.base_url('Cluster/editStatus/'.$row->id).'">edit Status</a></button><br><button class="badge badge-pill badge-info"><a style="text-decoration:none;color:white;" href="'.base_url('Cluster/editData/'.$row->id).'">edit Data</a></button>';
             $data[] = $sub_array;
         }          
@@ -197,10 +198,11 @@ class Cluster extends CI_Controller {
             $sub_array[] = $row->msisdn;
             $sub_array[] = $row->cluster;
             $sub_array[] = $row->status;
-            $sub_array[] = $row->dikonfirm;
-            $sub_array[] = $row->hadiah;    
             $newDate = date("d-M-Y H:i",strtotime($row->dibuat));
             $sub_array[] = $newDate;
+            $sub_array[] = $row->dikonfirm;
+            $sub_array[] = $row->hadiah;  
+            $sub_array[] = $row->kode_gan;  
             $sub_array[] = '<button class="badge badge-pill badge-info"><a style="text-decoration:none;color:white;" href="'.base_url('Cluster/editStatus/'.$row->id).'">edit Status</a></button><br><button class="badge badge-pill badge-info"><a style="text-decoration:none;color:white;" href="'.base_url('Cluster/editData/'.$row->id).'">edit Data</a></button>';
             $data[] = $sub_array;
         }
@@ -230,7 +232,8 @@ class Cluster extends CI_Controller {
             $newDate = date("d-M-Y H:i",strtotime($row->dibuat));
             $sub_array[] = $newDate;
             $sub_array[] = $row->dikonfirm;
-            $sub_array[] = $row->hadiah;    
+            $sub_array[] = $row->hadiah;  
+            $sub_array[] = $row->kode_gan;  
             $sub_array[] = '<button class="badge badge-pill badge-info"><a style="text-decoration:none;color:white;" href="'.base_url('Cluster/editStatus/'.$row->id).'">edit Status</a></button><br><button class="badge badge-pill badge-info"><a style="text-decoration:none;color:white;" href="'.base_url('Cluster/editData/'.$row->id).'">edit Data</a></button>';
             $data[] = $sub_array;
         }          
@@ -246,10 +249,11 @@ class Cluster extends CI_Controller {
             $sub_array[] = $row->msisdn;
             $sub_array[] = $row->cluster;
             $sub_array[] = $row->status;
-            $sub_array[] = $row->dikonfirm;
-            $sub_array[] = $row->hadiah;    
             $newDate = date("d-M-Y H:i",strtotime($row->dibuat));
             $sub_array[] = $newDate;
+            $sub_array[] = $row->dikonfirm;
+            $sub_array[] = $row->hadiah;  
+            $sub_array[] = $row->kode_gan;  
             $sub_array[] = '<button class="badge badge-pill badge-info"><a style="text-decoration:none;color:white;" href="'.base_url('Cluster/editStatus/'.$row->id).'">edit Status</a></button><br><button class="badge badge-pill badge-info"><a style="text-decoration:none;color:white;" href="'.base_url('Cluster/editData/'.$row->id).'">edit Data</a></button>';
             $data[] = $sub_array;
         }
@@ -279,7 +283,8 @@ class Cluster extends CI_Controller {
             $newDate = date("d-M-Y H:i",strtotime($row->dibuat));
             $sub_array[] = $newDate;
             $sub_array[] = $row->dikonfirm;
-            $sub_array[] = $row->hadiah;    
+            $sub_array[] = $row->hadiah;  
+            $sub_array[] = $row->kode_gan;  
             $sub_array[] = '<button class="badge badge-pill badge-info"><a style="text-decoration:none;color:white;" href="'.base_url('Cluster/editStatus/'.$row->id).'">edit Status</a></button><br><button class="badge badge-pill badge-info"><a style="text-decoration:none;color:white;" href="'.base_url('Cluster/editData/'.$row->id).'">edit Data</a></button>';
             $data[] = $sub_array;
         }          
@@ -295,10 +300,11 @@ class Cluster extends CI_Controller {
             $sub_array[] = $row->msisdn;
             $sub_array[] = $row->cluster;
             $sub_array[] = $row->status;
-            $sub_array[] = $row->dikonfirm;
-            $sub_array[] = $row->hadiah;    
             $newDate = date("d-M-Y H:i",strtotime($row->dibuat));
             $sub_array[] = $newDate;
+            $sub_array[] = $row->dikonfirm;
+            $sub_array[] = $row->hadiah;  
+            $sub_array[] = $row->kode_gan;  
             $sub_array[] = '<button class="badge badge-pill badge-info"><a style="text-decoration:none;color:white;" href="'.base_url('Cluster/editStatus/'.$row->id).'">edit Status</a></button><br><button class="badge badge-pill badge-info"><a style="text-decoration:none;color:white;" href="'.base_url('Cluster/editData/'.$row->id).'">edit Data</a></button>';
             $data[] = $sub_array;
         }
@@ -476,5 +482,6 @@ class Cluster extends CI_Controller {
         $this->load->view("cluster/sukses");
         $this->load->view("templates/afooter");       
     }
+
 
 }

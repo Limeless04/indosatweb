@@ -29,7 +29,7 @@
         <a class="nav-link" href="<?= base_url("Home/produk");?>">Produk</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?= base_url("Home/contact");?>">Contact</a>
+        <a class="nav-link" href="<?= base_url("Home/contacts");?>">Contact</a>
       </li>
     </ul>
   </div>

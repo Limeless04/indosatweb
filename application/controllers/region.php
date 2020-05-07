@@ -339,7 +339,7 @@ public function do_upload_img()
         $this->load->view('region/tambahHadiah');
         $this->load->view('templates/afooter');
         }else{
-        $this->do_upload_img_hadia();
+        $this->do_upload_img_hadiah();
         $this->session->set_flashdata('notif','<div class="alert alert-success" role="alert">
         Hadiah bari Berhasil ditambahkan!
         </div>');
@@ -349,7 +349,7 @@ public function do_upload_img()
 
     public function do_upload_img_hadiah()
     {
-    $config['upload_path']          = './assets/img/produk/';
+    $config['upload_path']          = './assets/img/hadiah/';
     $config['allowed_types']        = 'gif|jpg|png';
     $config['max_size']             = 10024;
     $config['overwrite']            = TRUE;
@@ -369,7 +369,6 @@ public function do_upload_img()
       $this->load->view("templates/asidebar");
       $this->load->view("region/tambahHadiah",$error);
       $this->load->view("templates/afooter");
-
       }
     }
 

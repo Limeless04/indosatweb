@@ -363,6 +363,9 @@ class Cluster extends CI_Controller {
             $this->form_validation->set_rules('ket','Keterangan','required');
             $this->Cluster_model->tambahMsisdnBaru();
         }
+        if($this->input->post("status")=="sukses"){
+            $this->form_validation->set_rules('petugas','Nama Petugas','required');
+        }
         if($this->form_validation->run() == FALSE){
             $this->load->view("templates/aheader",$data);
             $this->load->view("templates/csidebar");
@@ -372,7 +375,7 @@ class Cluster extends CI_Controller {
             // $data=$this->input->post();
             // var_dump($data);die;
             if($this->input->post("status")=="sukses"){
-                $this->sendEmailToPelanggan();
+                // $this->sendEmailToPelanggan();
                 $this->Cluster_model->editClusterStatus($id);
                 $this->session->set_flashdata('masuk','<div class="alert alert-success" role="alert">
                 Berhasil diubah!</div>');
@@ -385,42 +388,42 @@ class Cluster extends CI_Controller {
             }
         }
     }
-    function sendEmailToPelanggan(){
-        $this->load->library('email');
-        $this->load->library('encryption');
-        $config = Array(
-            'protocol' => 'smtp',
-            'smtp_host' => 'smtp.gmail.com',
-            'smtp_port' => 465,
-            'smtp_crypto'  =>'ssl',
-            'smtp_user' => 'belim3ooredo@gmail.com', // change it to yours
-            'smtp_pass' => 'Belim3now', // change it to yours
-            'mailtype' => 'html',
-            'smtp_timeout' =>'10',
-            'charset' => 'iso-8859-1',
-            'wordwrap' => TRUE,
-            'newline' => "\r\n",
-            'validation' => TRUE
-            ); 
-        $this->email->initialize($config);
-        $from_email = "belim3ooredo@gmail.com";//email default
-        $nama = $this->input->post('nama_pelanggan',true);
-        $no_wa = $this->input->post('nomor_wa',true);
-        $email = $this->input->post('email',true);
-        $data = $this->session->userdata('input1');
-        date_default_timezone_set("Asia/Jakarta");
-        $date = date('d-m-Y');
-        $time  = date('h:i:s'); 
-        $message = "<p>Pada tanggal, ". $date. " Jam ". $time . " telah masuk Order baru dengan data sebagai berikut : </>
-        <p>Produk:".$data['produk']."</p>\r\n<p>Msisdn: ".$data['msisdn']."</p>\r\n<p>Data Pelanggan: </p>\r\n<p>Nama: ".$nama."</p>\r\n<p>Alamat: ".$alamat."</p>\r\n<p>Nomor wa: ".$no_wa."</p>\r\n<p>Email: ".$email."</p>";
+    // function sendEmailToPelanggan(){
+    //     $this->load->library('email');
+    //     $this->load->library('encryption');
+    //     $config = Array(
+    //         'protocol' => 'smtp',
+    //         'smtp_host' => 'smtp.gmail.com',
+    //         'smtp_port' => 465,
+    //         'smtp_crypto'  =>'ssl',
+    //         'smtp_user' => 'belim3ooredo@gmail.com', // change it to yours
+    //         'smtp_pass' => 'Belim3now', // change it to yours
+    //         'mailtype' => 'html',
+    //         'smtp_timeout' =>'10',
+    //         'charset' => 'iso-8859-1',
+    //         'wordwrap' => TRUE,
+    //         'newline' => "\r\n",
+    //         'validation' => TRUE
+    //         ); 
+    //     $this->email->initialize($config);
+    //     $from_email = "belim3ooredo@gmail.com";//email default
+    //     $nama = $this->input->post('nama_pelanggan',true);
+    //     $no_wa = $this->input->post('nomor_wa',true);
+    //     $email = $this->input->post('email',true);
+    //     $data = $this->session->userdata('input1');
+    //     date_default_timezone_set("Asia/Jakarta");
+    //     $date = date('d-m-Y');
+    //     $time  = date('h:i:s'); 
+    //     $message = "<p>Pada tanggal, ". $date. " Jam ". $time . " telah masuk Order baru dengan data sebagai berikut : </>
+    //     <p>Produk:".$data['produk']."</p>\r\n<p>Msisdn: ".$data['msisdn']."</p>\r\n<p>Data Pelanggan: </p>\r\n<p>Nama: ".$nama."</p>\r\n<p>Alamat: ".$alamat."</p>\r\n<p>Nomor wa: ".$no_wa."</p>\r\n<p>Email: ".$email."</p>";
 
-        //Load email library
-        $this->email->from($from_email);
-        $this->email->to($email);
-        $this->email->subject('Pesanan Masuk');
-        $this->email->message($message);
-        //Send mail
-     }
+    //     //Load email library
+    //     $this->email->from($from_email);
+    //     $this->email->to($email);
+    //     $this->email->subject('Pesanan Masuk');
+    //     $this->email->message($message);
+    //     //Send mail
+    //  }
 
     function getMsisdn(){
         $getMsisdn = $this->Cluster_model->make_datatables_msisdn();

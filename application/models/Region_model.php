@@ -5,10 +5,8 @@ class Region_model extends CI_model{
      var $select_column = ['tb_pmasuk.nama_pelanggan','tb_pmasuk.no_wa','tb_pmasuk.cluster','tb_pmasuk.dibuat','tb_pmasuk.status','tb_pmasuk.msisdn','tb_pmasuk.alamat_rumah','tb_pmasuk.id','tb_pmasuk.produk','tb_cluster.propinsi','tb_cluster.cluster','COUNT("tb_pmasuk.nama_pelanggan") as "order"','COUNT("status") as sukses','COUNT("status") as reject','COUNT("status") as progress'];
 
     function make_query(){
-        $user= $this->db->get_where('tb_user',['email' => $this->session->userdata('email')]) ->row_array();
         $this->db->select($this->select_column);
         $this->db->where("tb_pmasuk.cluster=tb_cluster.cluster");
-        $this->db->where("tb_cluster.propinsi",$user['propinsi']);
         $this->db->group_by("tb_pmasuk.cluster");
         $this->db->from($this->table);
         if(@$_POST["search"]["value"]){
@@ -24,8 +22,8 @@ class Region_model extends CI_model{
         $user= $this->db->get_where('tb_user',['email' => $this->session->userdata('email')]) ->row_array();
         $this->db->select($this->select_column);
         $this->db->where("tb_pmasuk.cluster=tb_cluster.cluster");
-        $this->db->where("tb_cluster.propinsi",$user['propinsi']);
-        $this->db->like("status","suksess");
+        // $this->db->where("tb_cluster.propinsi",$user['propinsi']);
+        $this->db->where("status","sukses");
         $this->db->group_by("tb_pmasuk.cluster");
         $this->db->from($this->table);
         if(@$_POST["search"]["value"]){
@@ -41,8 +39,8 @@ class Region_model extends CI_model{
         $user= $this->db->get_where('tb_user',['email' => $this->session->userdata('email')]) ->row_array();
         $this->db->select($this->select_column);
         $this->db->where("tb_pmasuk.cluster=tb_cluster.cluster");
-        $this->db->where("tb_cluster.propinsi",$user['propinsi']);
-        $this->db->like("status","reject");
+        // $this->db->where("tb_cluster.propinsi",$user['propinsi']);
+        $this->db->where("status","reject");
         $this->db->group_by("tb_pmasuk.cluster");
         $this->db->from($this->table);
         if(@$_POST["search"]["value"]){
@@ -59,7 +57,7 @@ class Region_model extends CI_model{
         $this->db->select($this->select_column);
         $this->db->where("tb_pmasuk.cluster=tb_cluster.cluster");
         $this->db->where("tb_cluster.propinsi",$user['propinsi']);
-        $this->db->like("status","progress");
+        $this->db->where("status","progress");
         $this->db->group_by("tb_pmasuk.cluster");
         $this->db->from($this->table);
         if(@$_POST["search"]["value"]){
@@ -151,7 +149,7 @@ function get_all_data(){
         $data=[
             'nama_hadiah' => $this->input->post('nama_hadiah',true),
             'kuota' => $this->input->post('kuota',true),
-            'full_path' => $this->upload->data('full_path'),
+            'gambar' => $this->upload->data('file_name'),
         ];   
         $this->db->insert("tb_hadiah",$data);
     }

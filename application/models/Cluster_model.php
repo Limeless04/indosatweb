@@ -193,12 +193,12 @@ function get_all_data(){
     function editClusterStatus($id){
         if($this->input->post('status')!="reject"){
             $data =[
-                'status'=>$this->input->post('status')
+                'status'=>$this->input->post('status'),
+                'dikonfirm'=>$this->input->post('petugas')
             ];
         }else{
             $data =[
-                'status'=>$this->input->post('status'),
-                'ket'=>$this->input->post('ket')
+                'status'=>$this->input->post('status')
             ];
         }
         $this->db->where('id',$id);

@@ -1,6 +1,6 @@
 <h3 class="header_beli">Tambah Hadiah</h3>
 <div class="crud_produk">  
-<form action="action="<?= base_url("Region/do_upload_img_hadiah");?> method="post" enctype="multipart/form-data">
+<form action="<?= base_url("Region/do_upload_img_hadiah");?>" method="post" enctype="multipart/form-data">
     <div class="form-group row">
         <label for="inputEmail3" class="col-sm-2 col-form-label">Nama Hadiah</label>
         <div class="col-sm-10">

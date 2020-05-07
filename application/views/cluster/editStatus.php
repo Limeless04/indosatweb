@@ -15,10 +15,18 @@
     <div class="form-group row">
         <label for="inputEmail3" class="col-sm-2 col-form-label">Keterangan</label>
         <div class="col-sm-10">
-        <input type="text" class="form-control" id="nama_produk" name="ket" value="<?= set_value('ket');?>" placeholder="<?= $edit['ket'];?>">
+        <input type="text" class="form-control" id="nama_produk" name="ket" value="<?= set_value('ket');?>" >
         <?= form_error('ket','<small class="text-danger pl-3">','</small>');?>
         </div>
     </div>
+    <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Nama Petugas</label>
+        <div class="col-sm-10">
+        <input type="text" class="form-control" id="nama_produk" name="petugas" value="<?= set_value('petugas');?>">
+        <?= form_error('petugas','<small class="text-danger pl-3">','</small>');?>
+        </div>
+    </div>
+
     <input type="hidden" name="msisdn" value="<?= $edit["msisdn"];?>">
     <input type="hidden" name="cluster" value="<?= $edit["cluster"];?>">
     <button type="submit" class="btn" id="btn_submit">Submit</button>

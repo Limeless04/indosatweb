@@ -6,6 +6,7 @@
       <th scope="col">#</th>
       <th scope="col">Hadiah</th>
       <th scope="col">Kuota</th>
+      <th scope="col">Gambar</th>
       <th scope="col">Aksi</th>
     </tr>
   </thead>
@@ -19,6 +20,7 @@
       <th scope="row"><?php echo $i++;?></th>
       <td><?= $p['nama_hadiah'];?></td>
       <td><?=$p["kuota"];?></td>
+      <td><?=$p["gambar"];?></td>
       <td><a href="<?= base_url("Region/");?>hapusHadiah/<?= $p['id'];?>" class="badge badge-danger">Hapus</a>
     </tr>
     <?php endforeach;?>

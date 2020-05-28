@@ -58,6 +58,7 @@ class Cluster extends CI_Controller {
  
     public function addMsisdn(){
         $data['judul'] ="Cluster";
+        $data['produk'] = $this->Cluster_model->getAllDataProduk();
         $this->form_validation->set_rules('msisdn','MSISDn','required');
         if($this->form_validation->run() == FALSE){
             $this->load->view("templates/aheader",$data);
@@ -432,7 +433,8 @@ class Cluster extends CI_Controller {
         $sub_array = array();
         // $sub_array[]
         $sub_array[] = $row->msisdn;
-        $sub_array[] = $row->cluster  ;
+        $sub_array[] = $row->cluster;
+        $sub_array[] = $row->nama_produk;
         $sub_array[] = '<button data-toggle="modal" data-target="#mymodal" class="badge badge-pill badge-danger">Hapus</button>
          <!-- Modal -->
             <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

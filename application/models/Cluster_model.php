@@ -68,6 +68,7 @@ function get_all_data(){
         $user= $this->db->get_where('tb_user',['email' => $this->session->userdata('email')]) ->row_array();
         $data=[
             'msisdn' => $this->input->post('msisdn',true),
+            'nama_produk' => $this->input->post('nama_produk',true),
             'cluster' => $user["cluster"],
         ];   
         $this->db->insert("tb_msisdn",$data);

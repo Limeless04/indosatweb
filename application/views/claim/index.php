@@ -1,8 +1,10 @@
-<div class="container">
 <div class="flash-data" data-flashdata="<?= $this->session->flashdata('klaim')?>"></div>
 <div class="sukses" data-sukses="<?= $this->session->flashdata('sukses');?>"></div>
+<?php if(empty($gambar)):?>
+<?php else:?>
 <div class="gambar" data-gambar="<?= base_url('assets/img/hadiah/'.$gambar);?>"></div>
-    <img src="<?= base_url('assets/');?>img/claim.png" id="landing_page" alt="">
+<?php endif;?>
+    <img src="<?= base_url('assets/');?>img/claim.png" id="landing_page_claim" alt="">
         <form action="" method="post">
             <div class="form-group row">
                 <div class="mx-auto col-sm-4" style="text-align: center;">
@@ -15,5 +17,4 @@
                 <button type="submit" class="btn" id="btn_submit_2">Submit</button>
             </div>
     </form>
-</div>
 

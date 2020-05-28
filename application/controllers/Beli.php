@@ -21,7 +21,7 @@ class Beli extends CI_Controller {
         // $data['msisdn'] = $this->Home_mode->getAllMsisdn();
         $this->form_validation->set_rules('depo','Depo','required');
         $this->form_validation->set_rules('produk','Produk','required');
-        $this->form_validation->set_rules('msisdn','MSISDN','required'); 
+        // $this->form_validation->set_rules('msisdn','MSISDN','required'); 
         if($this->form_validation->run() == FALSE){
             $this->load->view('templates/header',$data);
             $this->load->view('beli/index',$data);
@@ -56,12 +56,13 @@ class Beli extends CI_Controller {
             $data = $this->session->userdata('input1');
             $this->sendEmailToPelanggan();
             $to_email = $this->Beli_model->getEmail();
-            $recipents_list= array();
             foreach ($to_email as $e){
                 $this->sendEmailToPic($e);
             }
             $this->Beli_model->pesananBaru();
-            $this->Beli_model->hapusMsisdn($data['msisdn']);
+            if($data['msisdn'] !== 'bebas'){
+                $this->Beli_model->hapusMsisdn($data['msisdn']);
+            }
             // $this->session->sess_destroy();
             redirect('Beli/sukses');
         }
@@ -69,7 +70,8 @@ class Beli extends CI_Controller {
 	
     function get_msisdn(){
         $depo= $this->input->post("depo");
-		$msisdn = $this->Beli_model->getMsisdn($depo);       
+        $produk= $this->input->post("produk");
+		$msisdn = $this->Beli_model->getMsisdn($depo,$produk);       
         echo json_encode($msisdn);// konversi varibael $callback menjadi JSON
 	}
     public function sukses(){
@@ -158,7 +160,7 @@ class Beli extends CI_Controller {
         <p>Produk:".$data['produk']."</p>\r\n<p>Msisdn: ".$data['msisdn']."</p>\r\n<p>Data Pelanggan: </p>\r\n<p>Nama: ".$nama."</p>\r\n<p>Alamat: ".$alamat."</p>\r\n<p>Nomor wa: ".$no_wa."</p>\r\n<p>Email: ".$email."</p><a href='http://localhost/indosat/Cluster/konfirmasi/'".$msisdn."'>Konfirmasi</a>";
         //Load email library
         $this->email->from($from_email, 'Orderan Baru');
-        $this->email->to($e);
+        $this->email->to($e['email']);
         $this->email->subject('New Order');
         $this->email->message($htmlContent);
         //Send mail

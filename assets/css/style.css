@@ -12,7 +12,7 @@ body{
     background-color: #fed225;
 }
 
-body #landing_page{
+body #landing_page,body #landing_page_claim{
     width: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -28,14 +28,15 @@ table tbody td{
 }
 body #navcontainer{
     margin-top: 60px;
-    color: #ff0000;
+    /* color: #ff0000; */
+}
+.fa-bars{
+    color:red;
 }
 body #navcontainer #logo_im3{
    width: 20%;
 }
-body #navcontainer #btn_navbar{
-    background-color:#ff0000 ;  
-}
+
 body #navcontainer #btn_navbar .navbar-toggler-icon{
     color: white;
 }
@@ -61,15 +62,15 @@ body .container ul li{
     list-style-type: none;
 }
 
-body .container .land_ul .land_li .btn_beli{
+body .container .btn_beli{
     position: absolute;
     top: 75%;
     left: 20%;
 }
-body .container .land_ul li .btn_claim{
+body .container .btn_claim{
     position: absolute;
     left: 20%;
-    top: 85%;
+    top: 82%;
 }
 
 body .container .btn_claim_2{
@@ -94,15 +95,33 @@ body .container .land_ul .land_li:not(:last-child){
     margin-top: 30px;
 }
 body .container .btn_beli,body .container .btn_claim{
+    background-image: linear-gradient(rgba(255,0,0,1),rgba(150,0,0,1));
+    box-shadow: -2px -2px black;
+    color: white;
+    padding: 5px 25px 5px 25px;
+    border-radius: 50px;
+    font-size: 15px;
+    letter-spacing:2px ;
+    font-weight: bold;
+    text-decoration: none;
+}
+body .container img#delivery{
+    position:absolute;
+    width:300px;
+    top:93%;
+    left: 20%;
+}
+#btn_submit_quiz{
     background-image: linear-gradient(rgba(255,0,0,1),rgba(128,0,0,1));
     box-shadow: -2px -5px black;
     color: white;
     padding: 10px 40px 10px 40px;
     border-radius: 50px;
-    font-size: 15pt;
+    font-size: 10pt;
     letter-spacing:2px ;
     font-weight: bold;
     text-decoration: none;
+    
 }
 
 .navbar-nav{
@@ -115,21 +134,34 @@ body .container .btn_beli,body .container .btn_claim{
     font-weight: bolder;
 }
 
-@media (max-width: 985px) {
-    body .container ul li{
-         display: inline-block;       
-    }  
-    body .container .land_ul .land_li .btn_beli{
-        font-size: 10px;
-        position: relative;
-        margin-left: auto;
-        margin-right: auto;
+@media (max-width: 712px) {
+   img#landing_page{
+        display: none;
     }
-    body .container .land_ul li .btn_claim{
-        font-size: 10px;
-        position: relative;
+    #landing_page_mobile{
+        background: #fed225;
+        margin-bottom: 10px;
+        background-image: url("../img/landing_page_mobile.png");
+        /* background-position:center; */
         margin-left: auto;
         margin-right: auto;
+        background-repeat:no-repeat;
+        background-size:cover;
+        height:400px;
+        width:300px;
+    }
+
+    body .container .btn_beli{
+        position: relative;
+        left: 25px;
+        display: inline-block;
+        font-size: 12px;
+    }
+    body .container .btn_claim{
+        font-size: 12px;
+        left: 30px;
+        position: relative;
+        display: inline-block;
     }
     .container img{
         width: 200%;
@@ -151,10 +183,39 @@ body .container .btn_beli,body .container .btn_claim{
         color: white;
         padding: 10px 40px 10px 40px;
         border-radius: 50px;
-        font-size: 15pt;
+        font-size: 10pt;
         letter-spacing:2px ;
         font-weight: bold;
         text-decoration: none;
+    }
+    #btn_submit_quiz{
+        background-image: linear-gradient(rgba(255,0,0,1),rgba(128,0,0,1));
+        box-shadow: -2px -5px black;
+        color: white;
+        padding: 10px 40px 10px 40px;
+        border-radius: 50px;
+        font-size: 10pt;
+        letter-spacing:2px ;
+        font-weight: bold;
+        text-decoration: none;
+    }
+    body .container .btn_beli,body .container .btn_claim{
+        background-image: linear-gradient(rgba(255,0,0,1),rgba(128,0,0,1));
+        box-shadow: -2px -2px black;
+        color: white;
+        padding: 5px 20px 5px 20px;
+        border-radius: 50px;
+        letter-spacing:2px ;
+        font-weight: bold;
+        text-decoration: none;
+    }
+    body .container img#delivery{
+        position: relative;
+        height: auto;
+        width:200px;
+        margin-top:10px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
@@ -205,5 +266,5 @@ left: 50%;
 transform: translate(-50%,-50%);
 }
 .container img{
-    width: 60%;
+    width: 50%;
 }

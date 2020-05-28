@@ -10,12 +10,14 @@
 <script src="<?= base_url('assets/');?>js/sidebar.js">   </script>
 <script type="text/javascript">
 $(document).ready(function(){
-    $('#depo').change(function(){
-        var depo = $(this).val();
+    $('#produk').change(function(){
+        var depo = $('#depo').val();
+        var produk = $(this).val();
         $.ajax({
             url:'<?php echo base_url("Beli/get_msisdn");?>',
             method:'POST',
-            data:{depo:depo},
+            data:{depo:depo,
+            produk:produk},
             dataType:'json',
             success:function(response){
                 $('#msisdn').find('option').not(':first').remove();

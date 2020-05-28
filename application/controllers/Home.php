@@ -24,6 +24,7 @@ class Home extends CI_Controller {
         parent::__construct();
 		$this->load->helper(array('form', 'url'));
 		$this->load->model('Home_model');
+		$this->load->library('form_validation');
     }
 	public function index()
 	{
@@ -58,6 +59,25 @@ class Home extends CI_Controller {
 		$this->load->view('home/produk',$data);
 		$this->load->view('templates/footer');
 	}
+	public function quiz(){
+		$data['judul'] ='Quiz';
+		//$data['produk']= $this->Home_model->getAllProduk();
+
+		$this->form_validation->set_rules('nama_penjawab','Nama Penjawab','required');
+        $this->form_validation->set_rules('no_hp','Nomor Hp Indosat','required');
+        $this->form_validation->set_rules('kab_kota','Kabupaten/Kota','required');
+		$this->form_validation->set_rules('akun_fb','Akun Facebook','required');
+		$this->form_validation->set_rules('jawaban','Jawaban','required');
+        if($this->form_validation->run()==FALSE){
+			$this->load->view('templates/header',$data);
+			$this->load->view('home/quiz',$data);
+			$this->load->view('templates/footer');	
+        }else{
+            $this->Home_model->jawabanQuiz();
+            // $this->session->sess_destroy();
+            redirect('Home/sukses');
+        }
+	}
 	public function contacts(){
 		$data['judul'] = 'Contacts';
 		$data['alamat'] = $this->Home_model->getContacts();
@@ -72,4 +92,10 @@ class Home extends CI_Controller {
 		// var_dump($id);
 		echo json_encode($produk);// konversi varibael $callback menjadi JSON
 	}
+	public function sukses(){
+        $data['judul']="Sukses";
+        $this->load->view('templates/header',$data);
+        $this->load->view('home/sukses');
+        $this->load->view('templates/footer');
+    }
 }

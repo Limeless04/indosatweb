@@ -56,7 +56,7 @@ class Region_model extends CI_model{
         $user= $this->db->get_where('tb_user',['email' => $this->session->userdata('email')]) ->row_array();
         $this->db->select($this->select_column);
         $this->db->where("tb_pmasuk.cluster=tb_cluster.cluster");
-        $this->db->where("tb_cluster.propinsi",$user['propinsi']);
+        // $this->db->where("tb_cluster.propinsi",$user['propinsi']);
         $this->db->where("status","progress");
         $this->db->group_by("tb_pmasuk.cluster");
         $this->db->from($this->table);
@@ -167,10 +167,8 @@ function get_all_data(){
         $this->db->where('id',$id);
         $this->db->update('tb_produk',$data);
     }
-    Public function editUserRegion($id){
+    Public function editUserPass($id){
         $data=[
-            'nama' => htmlspecialchars($this->input->post('nama',true)),
-            'email' => htmlspecialchars($this->input->post('email',true)),
             'password' => password_hash($this->input->post('password',true),PASSWORD_DEFAULT),
         ];
         $this->db->where('id',$id);
@@ -221,6 +219,9 @@ function get_all_data(){
 
     function getAllReport(){
         return $this->db->get("tb_pmasuk")->result_array();
+    }
+    function getAllJawaban(){
+        return $this->db->get("tb_quiz")->result_array();
     }
    function getContacts(){
        return $this->db->get('tb_contacts')->result_array();

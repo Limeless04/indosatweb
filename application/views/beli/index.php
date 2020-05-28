@@ -30,8 +30,9 @@
         <label for="inputEmail3" class="col-sm-2 col-form-label">Pilih MSISDN</label>
         <div class="col-sm-10">
             <select class="form-control" id="msisdn" name="msisdn">
-                <option value="">Pilih MSISDN...</option>
+                <option value="bebas">Pilih MSISDN...</option>
             </select>
+            <small>Jika MSISDN kosong, MSISDN akan diisi secara otomatis oleh sistem</small>
         <?= form_error('msisdn','<small class="text-danger pl-3">','</small>');?>
         </div>
     </div>

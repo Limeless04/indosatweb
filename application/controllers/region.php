@@ -150,6 +150,31 @@ class Region extends CI_Controller {
         header('Cache-Control:max-age=0');
         $writer->save("php://output");
     }
+    function ExportExcelJawaban(){
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $data = $this->Region_model->getAllJawaban();
+        // var_dump($data);die;
+        $sheet->setCellValue('A1','Nama Penjawab');
+        $sheet->setCellValue('B1','Nomor Hp');
+        $sheet->setCellValue('C1','Kabupaten/kota');
+        $sheet->setCellValue('D1','Akun Fb');
+        $sheet->setCellValue('E1','Jawaban');
+        $i = 2;
+        foreach($data as $d){
+            $spreadsheet->setActiveSheetIndex(0)->setCellValue('A'.$i,$d['nama'])->setCellValue('B'.$i,$d['no_hp'])->setCellValue('C'.$i,$d['kab_kota'])->setCellValue('D'.$i,$d['akun_fb'])->setCellValue('E'.$i,$d['jawaban']);
+            $i++;
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        date_default_timezone_set("Asia/Jakarta");
+        $filename='reportJawaban '.date("m-d-y");
+        header('Content-Type:application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'.$filename.'.xlsx"');
+        header('Cache-Control:max-age=0');
+
+        $writer->save('php://output');
+    }
     
     function do_upload(){
         $config['upload_path']          = './assets/uploads/';
@@ -408,9 +433,12 @@ public function do_upload_img()
             foreach($getReportR as $row){
                 $sub_array[]=$row->reject;
             }
-        }
-        foreach($getReportP as $row){
-            $sub_array[]=$row->progress;
+        }if(empty($getReportP)){
+            $sub_array[]="kosong";            
+        }else{
+            foreach($getReportP as $row){
+                $sub_array[]=$row->progress;
+            }
         }
         $data[]=$sub_array;
 
@@ -451,5 +479,32 @@ public function do_upload_img()
             redirect('Cluster/email');
         }
     }
+    public function editUser($id){
+        $data['judul'] ="Region";
+        $data['user'] = $this->db->get_where('tb_user',['id' => $id]) ->row_array();
+        $this->form_validation->set_rules('password','Password','required|trim|min_length[8]|matches[password2]',[
+        'matches' => 'Password dont match!',
+        'min_length' => 'Password too short!'
+        ]);
+        $this->form_validation->set_rules('password2','Password','required|trim|matches[password]',[
+        'matches' => 'Password dont match!',
+        'min_length' => 'Password too short!'
+        ]);
+        if($this->form_validation->run() == FALSE){
+            $this->load->view("templates/aheader",$data);
+            $this->load->view("templates/asidebar");
+            $this->load->view("region/editUser",$data);
+            $this->load->view("templates/afooter");
+        }else{
+            // $data=$this->input->post();
+            // var_dump($data);die;
+            $this->Region_model->editUserPass($id);
+            $this->session->set_flashdata('pesan','<div class="alert alert-success" role="alert">
+            Berhasil diedit! Untuk Melihat Perubahan Silahkan Login Ulang.
+            </div>');
+            redirect('Region/pic');
+        }
+    }
+
 }
 

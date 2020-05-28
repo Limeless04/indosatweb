@@ -8,6 +8,7 @@
                 <tr>
                     <th scope="col">Msisdn</th>
                     <th scope="col">Cluster</th>
+                    <th scope="col">Nama Produk</th>
                     <th scope="col">Aksi</th>
                 </tr>
             </thead>

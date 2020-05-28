@@ -26,6 +26,15 @@
       </div>
     </div>
   </div>
+  <div class="col-sm-6" style="margin-top:30px;">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Export Jawaban Quiz</h5>
+        <p class="card-text">Option Untuk Mengeksport jawaban quiz</p>
+        <button class="btn btn-warning"><a style="text-decoration:none;color:black;" href="<?= base_url('Region/ExportExcelJawaban');?>">Export Jawaban</a></button>
+      </div>
+    </div>
+  </div>
 </div>
 <!-- <ul>
 <?php if(empty($upload_data)): ?>
